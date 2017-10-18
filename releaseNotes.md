@@ -19,7 +19,7 @@ sidebar:
   * HTTP POST, GET, PUT and COAP  
   * XML and JSON encoding
   * Parameters in path, query, body and body template
-* Introduced `OfferingSelector` for defining a rule set to select a single offering response of a discovery
+* Introduced `OfferingSelector` for defining a rule set to select a single offering out of the discovery response
 * Map the access response to your POJO 
   * Automatic mapping: `List<MyPojo> list  = res.get().map(MyPojo.class)`
   * Source code annoated remapping: `List<MyPojoAnnoated> list  = res.get().map(MyPojoAnnotated.class)`
