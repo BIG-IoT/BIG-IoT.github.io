@@ -7,9 +7,7 @@ sidebar:
 
 ### 0.9.6
 
-*Highlighted features and changes since 0.8.0*
-
-*Checkout [more-java-examples](https://github.com/BIG-IoT/example-projects/tree/master/more-java-examples) on GitHub*
+*Highlighted features and changes since 0.8.0. Checkout [more-java-examples](https://github.com/BIG-IoT/example-projects/tree/master/more-java-examples) on GitHub*
 
 * Renamed package prefix from `org.bigiot.lib` to `org.eclipse.bigiot.lib`
 * Renamed `addInputDataElement` to `addInputData` in `RegistrableOfferingDescription`
