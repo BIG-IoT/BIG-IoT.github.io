@@ -31,7 +31,7 @@ compile 'org.eclipse.bigiot.lib:bigiot-lib-core:x.y.z'
 
 ### Advanced Lib
 
-This lib extends the Core Lib and introduces lambda as well as asynchronous computation support via functional interfaces and *CompletableFuture*.  It requires Java 8+.
+This lib extends the core lib and introduces lambda as well as asynchronous computation support via functional interfaces and *CompletableFuture*.  It requires Java 8 or newer.
 
 Import as Maven dependency: 
 ```xml
@@ -49,7 +49,7 @@ compile 'org.eclipse.bigiot.lib:bigiot-lib-advanced:x.y.z'
 
 ### Embedded Spark
 
-This extends the Advanced Lib with an implementation for deploying your offering on the programmatic Web server ([Spark](http://sparkjava.com/)). You can use this lib, if you your BIG IoT Offering is provider side integrated on a gateway service.
+This extends the advanced lib with an implementation for deploying your offering on the programmatic web server [Spark](http://sparkjava.com/). You can use this lib, if your your BIG IoT Ofering should be provider side integrated on a gateway service.
 
 Import as Maven dependency: 
 ```xml
