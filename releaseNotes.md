@@ -15,7 +15,7 @@ sidebar:
 * Introduced Complex Types
   * On provider side, use `addInputData(/*..*/`, `IOData.createMembers()./*..*/)` to configure your offering
   * On consumer side, use `AccessParameters.create().addNameValue("myComplex", AccessParameters.create()./*..*/)`
-* Added support for consumer side integrated offerings (integration mode 2) with the following degreed of freedom
+* Added support for consumer side integrated offerings (integration mode 2) with the following degrees of freedom
   * HTTP POST, GET, PUT and COAP  
   * XML and JSON encoding
   * Parameters in path, query, body and body template
