@@ -24,7 +24,7 @@ sidebar:
   * Automatic mapping: `List<MyPojo> list  = res.get().map(MyPojo.class)`
   * Source code annoated remapping: `List<MyPojoAnnoated> list  = res.get().map(MyPojoAnnotated.class)`
   * Programmatic remapping: `List pojo = res.get().map(MyCustomPojo.class, OutputMapping.create().addTypeMapping("schema:geoCoordinates", "myCoordinate")/*..*/)`  
-* Introduced HTTP proxy configuration (e.g. `provider.setProxy("127.0.0.1",3128)`, `provider.addProxyBypass("172.17.17.100")`)
+* Introduced HTTP proxy configuration, use `provider.setProxy("127.0.0.1",3128)` and `provider.addProxyBypass("172.17.17.100")`)
 * Supported automatic renewal of offerings
 * Specification of route for offering registration is now optional
 * Enabled offering queries including a subset of search parameters (search for all type of offerings in Barcelona)
