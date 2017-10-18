@@ -6,7 +6,8 @@ sidebar:
 ---
 
 ### 0.9.6
-* HIghlighted features and changes since 0.8.0*
+
+*Highlighted features and changes since 0.8.0*
 
 * Renamed package prefix from `org.bigiot.lib` to `org.eclipse.bigiot.lib`
 * Renamed `addInputDataElement` to `addInputData` in `RegistrableOfferingDescription`
