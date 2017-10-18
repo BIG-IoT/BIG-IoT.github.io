@@ -11,13 +11,15 @@ sidebar:
 * Renamed package prefix from `org.bigiot.lib` to `org.eclipse.bigiot.lib`
 * Renamed `addInputDataElement` to `addInputData` in `RegistrableOfferingDescription`
 * Renamed term `AccoutingType` to `PricingModel` in all methods
-* Introduced Complex Types (e.g. `addInputData([..]`, `IOData.createMembers().[..])`) 
+* Introduced Complex Types
+  * On provider side use `addInputData([..]`, `IOData.createMembers().[..])`for 
 * Introduced HTTP proxy configuration (e.g. `provider.setProxy("127.0.0.1",3128)`, `provider.addProxyBypass("172.17.17.100")`)
 * Added support for consumer side integrated offerings (integration mode 2) with the following degreed of freedom
   * HTTP POST, GET, PUT and COAP  
   * XML and JSON encoding
   * Parameters in path, query, body and body template
-* Introduced `OfferingSelector` for defining a rule set to select a single offering out of the result of discover
+* Introduced `OfferingSelector` for defining a rule set to select a single offering response of a discovery
+* Supported automatic renewal of offerings
 * Specification of route for offering registration is now optional
 * Enabled offering queries including a subset of search parameters (search for all type of offerings in Barcelona)
 * Added `inCity` for creating offering descriptions and offering queries
