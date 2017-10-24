@@ -47,60 +47,6 @@ AccessParameters accessParameters = AccessParameters
     .addNameValue("longitude", 8.11))
   .addNameValue("radius", 777));
 ```
-After we retrieved the data, we want to map it automatically to a POJO so that we do not have to manually parse the response.
-
-### Automated mapping to POJO
-
-The following example will show you, how you can access offerings and let the BIG IoT Lib automatically match the output parameters to your POJO.
-
-```java
-CompletableFuture<AccessResponse> response = offering.accessOneTime(accessParameters);
-//Mapping the response automatically to your POJO
-List<ParkingResultAnnotated> parkingResult = response.get().map(MyParkingResultPojoAnnotated.class);
-```
-
-For the access request, you use the map method, which accepts an annotated POJO class. The lib will now map the response data from the parking provider to the POJO MyParkingResultAnnotated. 
-
-```java
-public class MyParkingResultAnnotated {
-	public static class Coordinate {
-		public double latitude;
-		public double longitude;
-	}
-	@ResponseMappingType("schema:geoCoordinates")
-	public MyParkingResultPojoAnnotated.Coordinate coordinate;
-	@ResponseMappingType("datex:distanceFromParkingSpace")
-	public double distance;
-	@ResponseMappingType("datex:parkingSpaceStatus")
-	public String status;	
-}
-```
-
-In order to map semantic types to your POJO’s types, you can use the *ResponseMappingType* class, which is parameterized with the semantic type you want to map. In this case, we would map the complex type **geoCoordinates** from the Complex Parking Offering to the Coordinate class.  
-
-Another option, instead of using an automated mapping approach is to do the mapping manually. You can see how this works in the next example (note that we use the non-annotated version of the ParkingResult).
-
-```java
-CompletableFuture<AccessResponse> response = offering.accessOneTime(accessParameters);
-List parkingResult = response.get()
-  .map(MyParkingResultPojo.class, OutputMapping
-  .create()
-  .addTypeMapping("schema:geoCoordinates", "coordinate")
-  .addTypeMapping("datex:distanceFromParkingSpace", "distance")
-  .addTypeMapping("datex:parkingSpaceStatus", "status"));
-```
-
-To provide the mapping manually, you use the *addTypeMapping* method, for each semantic type from the provider’s output data elements so that the lib can match it to your POJO.  
-
-A third option is to provide your own mapping which means to cherry-pick the required fields from the access response. In the example, we map **latitude** from the complex type **geoCoordinates** to the field **coordinate** of our parking result POJO. Also, we map the field **distance** to the POJO field **meters**.
-
-```java
-CompletableFuture<AccessResponse> response = offering.accessOneTime(accessParameters);
-List parkingResult3 = response.get().map(AlternativeParkingPojo.class, OutputMapping.create()
-	.addNameMapping("geoCoordinates.latitude", "coordinates.latitude")
-	.addNameMapping("geoCoordinates.longitude", "coordinates.longitude")
-	.addNameMapping("distance", "meters"));
-```
 
 ### Using integration mode 3
 Up till now, we have only considered the case that **you** provide the callback code to access your IoT platforms. But what if you cannot or do not want to start additional services in your environment? In this example, you learn how to register and access offerings that uses the *BIG IoT integration mode 3*, which enables a completely consumer lib - driven access to your IoT platform. 
