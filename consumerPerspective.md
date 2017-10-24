@@ -145,7 +145,7 @@ AccessFeed accessFeed = offering
 	);
 ```
 
-You notice that the procedure is very similar to the access on a per-request base. We use the *accessContinuous* method of the OfferingQuery object which requires the *accessParameters* object, a duration and feed interval, a success callback and a failure callback in case something went wrong. *accessContinuous* creates a feed, which requires a lifecycle management. The *accessFeed* object has functionality for stopping (stop), resuming (resume) and getting the status of a feed subscription (status), which we don’t want to use now.  
+You notice that the procedure is very similar to the access on a per-request base. We use the *accessContinuous* method of the OfferingQuery object which requires the *accessParameters* object, a duration and feed interval, a success callback and a failure callback in case something went wrong. *accessContinuous* creates a feed, which requires a lifecycle management. The *accessFeed* object has functionality for stopping (stop), resuming (resume) and getting the status of a feed subscription (status), which we don’t want to use now. 
 
 If you want to stop accessing an offering, you can unsubscribe accordingly.
 
@@ -156,6 +156,60 @@ consumer.terminate();
 
 Make sure to always call the terminate method of the consumer object before stopping your application in order to terminate any open network connections. 
 
-That's it! You have just learned how to use the BIG IoT Library as a data provider as well as a data consumer. 
+### Automated mapping to POJO
+
+The following example will show you, how you can access offerings and let the BIG IoT Lib automatically match the output parameters to a Parking POJO.
+
+```java
+CompletableFuture<AccessResponse> response = offering.accessOneTime(accessParameters);
+//Mapping the response automatically to your POJO
+List<ParkingResultAnnotated> parkingResult = response.get().map(MyParkingResultPojoAnnotated.class);
+```
+
+For the access request, you use the map method, which accepts an annotated POJO class. The lib will now map the response data from the parking provider to the POJO MyParkingResultAnnotated. 
+
+```java
+public class MyParkingResultAnnotated {
+	public static class Coordinate {
+		public double latitude;
+		public double longitude;
+	}
+	@ResponseMappingType("schema:geoCoordinates")
+	public MyParkingResultPojoAnnotated.Coordinate coordinate;
+	@ResponseMappingType("datex:distanceFromParkingSpace")
+	public double distance;
+	@ResponseMappingType("datex:parkingSpaceStatus")
+	public String status;	
+}
+```
+
+In order to map semantic types to your POJO’s types, you can use the *ResponseMappingType* class, which is parameterized with the semantic type you want to map. In this case, we would map the complex type **geoCoordinates** from the Complex Parking Offering to the Coordinate class.  
+
+Another option, instead of using an automated mapping approach is to do the mapping manually. You can see how this works in the next example (note that we use the non-annotated version of the ParkingResult).
+
+```java
+CompletableFuture<AccessResponse> response = offering.accessOneTime(accessParameters);
+List parkingResult = response.get()
+  .map(MyParkingResultPojo.class, OutputMapping
+  .create()
+  .addTypeMapping("schema:geoCoordinates", "coordinate")
+  .addTypeMapping("datex:distanceFromParkingSpace", "distance")
+  .addTypeMapping("datex:parkingSpaceStatus", "status"));
+```
+
+To provide the mapping manually, you use the *addTypeMapping* method, for each semantic type from the provider’s output data elements so that the lib can match it to your POJO.  
+
+A third option is to provide your own mapping which means to cherry-pick the required fields from the access response. In the example, we map **latitude** from the complex type **geoCoordinates** to the field **coordinate** of our parking result POJO. Also, we map the field **distance** to the POJO field **meters**.
+
+```java
+CompletableFuture<AccessResponse> response = offering.accessOneTime(accessParameters);
+List parkingResult3 = response.get().map(AlternativeParkingPojo.class, OutputMapping.create()
+	.addNameMapping("geoCoordinates.latitude", "coordinates.latitude")
+	.addNameMapping("geoCoordinates.longitude", "coordinates.longitude")
+	.addNameMapping("distance", "meters"));
+```
+
+
+**That's it!** You have just learned how to use the BIG IoT Library as a data provider as well as a data consumer. 
 
 
