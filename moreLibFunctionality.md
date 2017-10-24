@@ -5,7 +5,7 @@ sidebar:
   nav: "docs"
 ---
 
-### Complex types - Provider perspective **BETA**
+###  ***BETA***    Complex types - Provider perspective 
 In this section, we want to describe an example of **complex types**. Complex types are used, so that providers can semantically describe complex datatypes that can contain nested structures. This is possible in the latest version of the BIG IoT SDK.
 **Please be aware that complex types are not yet supported by the marketplace, nevertheless they can already be used in the BIG IoT SDK.**
 
@@ -33,7 +33,7 @@ RegistrableOfferingDescription offeringDescription = provider.createOfferingDesc
 Let’s expand our previous example with a more complex parking offering. We want to register a parking information offering on the marketplace with the complex type **areaSpecification**, which is described as the semantic RDF type schema:GeoCircle. It consists of the two nested types: geoCoordinates and geoRadius.
 We also add the complex type geoCoordinates to the list of output parameters.  
 
-### Complex types - Consumer perspective **BETA**
+### ***BETA***  Complex types - Consumer perspective 
 Now that we’ve added complex types to our provider’s offering, we want to add complex type support to our consumer. In order to do that we make use of complex access parameters. 
 As you can see in the following example, this is quite similar to the way, we use complex types in offering descriptions. We use the AccessParameters.create method in order to create the access parameter for the areaSpecification. 
 
