@@ -5,6 +5,23 @@ sidebar:
   nav: "docs"
 ---
 
+### 0.9.7
+
+*Highlighted features and changes since 0.9.6. 
+
+* Extended Consumer Lib to also access Offerings with an HTTP endpoint (before only HTTPS was supported)
+* Introduces Provider Lib functionality for acess streams. 
+   * This allows a provider to simply queue stream data in an `RegisteredOffering` with the `queue()` method
+   * For such offerings, the Provider Lib will then directly stream those queued data to consumers upon an access requests - without the access callback function
+   * `offering.flush()` will flush queued data in the access stream
+* Extended Consumer Lib trust manager to trust besides the Provider Lib endpoints also any Provider end point with a certificate that is trusted by the Java VM 
+* Bug fixes:
+   * `.inCity()` or `.inRegion()` is now optional for Offering Descriptions
+   * `.withPricingModel(PricingModel.FREE)` is now also supported by the Provider Lib supported
+   * `.withPrice()` and `.withPriceModel()` are now optional and a Free Pricing Model is chosed by default
+   * the access response `.map()` function works now also when the response includes unexpected property names - those are simnply ignored
+   * `BigIotHttpResponse.okay().withBody()` was extended so also allow the passing of JSON Objects or JSON Arrays
+
 ### 0.9.6
 
 *Highlighted features and changes since 0.8.0. Checkout [more-java-examples](https://github.com/BIG-IoT/example-projects/tree/master/more-java-examples) on GitHub*
