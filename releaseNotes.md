@@ -11,8 +11,7 @@ sidebar:
 
 * Extended Consumer Lib to also access Offerings with an HTTP endpoint (before only HTTPS was supported)
 * Extended AccessRequestHandler to also provide the Subscriber Id and Consumer information in the callback function
-   * `public BigIotHttpResponse processRequestHandler (OfferingDescription offeringDescription, Map<String,Object> inputData)` 
-   * --> 
+   * `public BigIotHttpResponse processRequestHandler (OfferingDescription offeringDescription, Map<String,Object> inputData)`   --> 
    * `public BigIotHttpResponse processRequestHandler (OfferingDescription offeringDescription, Map<String,Object> inputData, String subscriberId, String consumerInfo)`
 * Introduces Provider Lib functionality for acess streams: 
    * This allows a provider to simply queue stream data in an `RegisteredOffering` with the `queue()` method
