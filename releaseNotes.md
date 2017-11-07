@@ -7,6 +7,8 @@ sidebar:
 
 ### 0.9.7
 
+NOTE: Update to this version requires a minor change to the Programming API (see the `AccessRequestHandler` below). All other changes are backward compatibile.
+
 *Highlighted features and changes since 0.9.6:*
 
 * Extended Consumer Lib to also access Offerings with an HTTP endpoint (before only HTTPS was supported)
