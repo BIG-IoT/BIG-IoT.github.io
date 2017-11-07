@@ -14,11 +14,12 @@ sidebar:
    * `public BigIotHttpResponse processRequestHandler (OfferingDescription offeringDescription, Map<String,Object> inputData)`   --> 
    * `public BigIotHttpResponse processRequestHandler (OfferingDescription offeringDescription, Map<String,Object> inputData, String subscriberId, String consumerInfo)`
 * Introduces Provider Lib functionality for acess streams: 
-   * This allows a provider to simply queue stream data in an `RegisteredOffering` with the `queue()` method
+   * This allows a provider to simply qeue stream data in an `RegisteredOffering` with the `queue()` method
    * For such offerings, the Provider Lib will then directly stream those queued data to consumers upon an access requests - without the access callback function
    * `offering.flush()` will flush queued data in the access stream
+   * an `AccessStreamFilterHandler` can be provided during offering creation (with `.withAccessStreamFilterHandler()`) to support input parameter filtering
 * Extended Consumer Lib trust manager to trust besides the Provider Lib endpoints also any Provider end point with a certificate that is trusted by the Java VM 
-* Improved stability of Marketplece interactions, e.g. re-registration will happen after Marketplace crash
+* Improved Lib stability of Marketplece interactions, e.g. re-registration will continue after Marketplace crash
 * Extended `BigIotHttpResponse.okay().withBody()` to also allow passing of JSONObjects or JSONArrays in the response
 * Bug fixes:
    * `.inCity()` or `.inRegion()` is now optional for Offering Descriptions
