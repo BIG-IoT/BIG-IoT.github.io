@@ -19,12 +19,13 @@ sidebar:
    * `offering.flush()` will flush queued data in the access stream
 * Extended Consumer Lib trust manager to trust besides the Provider Lib endpoints also any Provider end point with a certificate that is trusted by the Java VM 
 * Improved stability of Marketplece interactions, e.g. re-registration will happen after Marketplace crash
+* Extended `BigIotHttpResponse.okay().withBody()` to also allow passing of JSONObjects or JSONArrays in the response
 * Bug fixes:
    * `.inCity()` or `.inRegion()` is now optional for Offering Descriptions
    * `.withPricingModel(PricingModel.FREE)` is now also supported by the Provider Lib supported
    * `.withPrice()` and `.withPriceModel()` are now optional and a Free Pricing Model is chosed by default
    * the access response `.map()` function works now also when the response includes unexpected property names - those are simnply ignored
-   * `BigIotHttpResponse.okay().withBody()` was extended so also allow the passing of JSON Objects or JSON Arrays
+   
 
 ### 0.9.6
 
