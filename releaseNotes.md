@@ -10,7 +10,9 @@ sidebar:
 *Highlighted features and changes since 0.9.6:*
 
 * Extended Consumer Lib to also access Offerings with an HTTP endpoint (before only HTTPS was supported)
-* Introduces Provider Lib functionality for acess streams. 
+* Extended AccessRequestHandler to also provide the Subscriber Id and Consumer information in the callback function
+   * `public BigIotHttpResponse processRequestHandler (OfferingDescription offeringDescription, Map<String,Object> inputData)` --> `public BigIotHttpResponse processRequestHandler (OfferingDescription offeringDescription, Map<String,Object> inputData), String subscriberId, String consumerInfo)`
+* Introduces Provider Lib functionality for acess streams: 
    * This allows a provider to simply queue stream data in an `RegisteredOffering` with the `queue()` method
    * For such offerings, the Provider Lib will then directly stream those queued data to consumers upon an access requests - without the access callback function
    * `offering.flush()` will flush queued data in the access stream
