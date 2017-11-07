@@ -7,7 +7,7 @@ sidebar:
 
 ### 0.9.7
 
-*Highlighted features and changes since 0.9.6. 
+*Highlighted features and changes since 0.9.6.*
 
 * Extended Consumer Lib to also access Offerings with an HTTP endpoint (before only HTTPS was supported)
 * Introduces Provider Lib functionality for acess streams. 
