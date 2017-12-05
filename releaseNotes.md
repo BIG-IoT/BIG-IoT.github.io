@@ -12,7 +12,7 @@ NOTE: No update to Programming API required.
 *Highlighted features and changes since 0.9.7:*
 
 * Support Consumers to use `.discoverContinuous(...)` by defining callback functions and a frequency in seconds. See an example consumer [here](https://github.com/BIG-IoT/example-projects/blob/master/more-java-examples/src/main/java/org/eclipse/bigiot/lib/examples/ExampleConsumerDiscoverContinuous.java).
-* Added example project for usage of AccessStream feature for Providers. See [here](https://github.com/BIG-IoT/example-projects/blob/master/more-java-examples/src/main/java/org/eclipse/bigiot/lib/examples/ExampleProviderAccessStream.java). 
+* Added example provider for usage of access stream feature (introduced in v0.9.7). See [here](https://github.com/BIG-IoT/example-projects/blob/master/more-java-examples/src/main/java/org/eclipse/bigiot/lib/examples/ExampleProviderAccessStream.java). 
 * Bug Fixes:
   * Disabled automatic connection failure handling in HTTP Client (to avoid message storms on Marketplace after a restart).
   * Fixed response object handling on accessContinuous to avoid leaks.
