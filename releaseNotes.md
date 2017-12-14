@@ -13,6 +13,7 @@ NOTE: No update to Programming API required.
 
 * Support Consumers to use `.discoverContinuous(...)` by defining callback functions and a frequency in seconds. See an example consumer [here](https://github.com/BIG-IoT/example-projects/blob/master/more-java-examples/src/main/java/org/eclipse/bigiot/lib/examples/ExampleConsumerDiscoverContinuous.java).
 * Added example provider for usage of access stream feature (introduced in version 0.9.7). See [here](https://github.com/BIG-IoT/example-projects/blob/master/more-java-examples/src/main/java/org/eclipse/bigiot/lib/examples/ExampleProviderAccessStream.java). 
+  * Note: Access streams support providers that offer real-time data as streams in a way that the Provider Lib takes care of the stream handling, i.e. the provider passes newly arriving data points to the Provider Lib, which internally takes care of the queuing and stream management and takes care that each consumer obtains the  data points only once per session - despite multiple access requests.
 * Bug Fixes:
   * Disabled automatic connection failure handling in HTTP Client (to avoid message storms on Marketplace after a restart).
   * Fixed response object handling on accessContinuous to avoid leaks.
@@ -29,10 +30,10 @@ NOTE: Update to this version requires a minor change to the Programming API (see
 * Extended AccessRequestHandler to also provide the Subscriber Id and Consumer information in the callback function
    * `public BigIotHttpResponse processRequestHandler (OfferingDescription offeringDescription, Map<String,Object> inputData)`   --> 
    * `public BigIotHttpResponse processRequestHandler (OfferingDescription offeringDescription, Map<String,Object> inputData, String subscriberId, String consumerInfo)`
-* Introduces Provider Lib functionality for acess streams: 
-   * This allows a provider to simply qeue stream data in an `RegisteredOffering` with the `queue()` method
-   * For such offerings, the Provider Lib will then directly stream those queued data to consumers upon an access requests - without the access callback function
-   * `offering.flush()` will flush queued data in the access stream
+* Introduces Provider Lib functionality for *Access Streams* - access streams support providers that offer real-time data as streams in a way that the Provider Lib takes care of the stream handling, i.e. the provider passes newly arriving data points to the Provider Lib, which internally takes care of the queuing and stream management and takes care that each consumer obtains the  data points only once per session - despite multiple access requests.
+   * Providers can *queue* stream data in an `RegisteredOffering` with the `.queue()` method
+   * For such offerings, the Provider Lib will directly serve those queued data to consumers upon an access requests - without the access callback function
+   * `.flush()` will flush queued data in the access stream
    * an `AccessStreamFilterHandler` can be provided during offering creation (with `.withAccessStreamFilterHandler()`) to support input parameter filtering
 * Extended Consumer Lib trust manager to trust besides the Provider Lib endpoints also any Provider end point with a certificate that is trusted by the Java VM 
 * Improved Lib stability of Marketplece interactions, e.g. re-registration will continue after Marketplace crash
