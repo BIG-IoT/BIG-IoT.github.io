@@ -5,6 +5,21 @@ sidebar:
   nav: "docs"
 ---
 
+### 0.9.9
+
+NOTE: Update to this version requires a minor change to the Programming API (a new BIG IoT Excdeption needs to be handled). All other changes are backward compatibile.
+
+*Highlighted features and changes since 0.9.8:*
+
+* Support for BIG IoT properties has been added to simplify the management and update of Marketplace URIs, Provider and Consumer IDs, secrets, etc. 
+   * How this feature can be used is illustrated here:
+     'BridgeIotProperties prop = BridgeIotProperties.load("example.properties");
+      ProviderSpark provider = ProviderSpark.create(prop.PROVIDER_ID, prop.MARKETPLACE_URI, prop.PROVIDER_DNS_NAME, prop.PROVIDER_PORT);
+      provider.authenticate(prop.PROVIDER_SECRET);'
+   * Full examples on how to use this for a Consumer and Provider is shown here (Consumer) and here (Provider).
+      
+
+
 ### 0.9.8
 
 NOTE: No update to Programming API required. 
