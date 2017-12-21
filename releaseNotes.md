@@ -13,12 +13,15 @@ NOTE: Update to this version requires a minor change to the Programming API (a n
 
 * Support for BIG IoT properties has been added to simplify the management and update of Marketplace URIs, Provider and Consumer IDs, secrets, etc. 
    * How this feature can be used is illustrated here:
-     'BridgeIotProperties prop = BridgeIotProperties.load("example.properties");
+     `BridgeIotProperties prop = BridgeIotProperties.load("example.properties");
       ProviderSpark provider = ProviderSpark.create(prop.PROVIDER_ID, prop.MARKETPLACE_URI, prop.PROVIDER_DNS_NAME, prop.PROVIDER_PORT);
-      provider.authenticate(prop.PROVIDER_SECRET);'
-   * Full examples on how to use this for a Consumer and Provider is shown here (Consumer) and here (Provider).
-      
-
+      provider.authenticate(prop.PROVIDER_SECRET);`
+   * Full examples on how to use this for a Consumer and Provider is shown [here](https://github.com/BIG-IoT/example-projects/blob/master/more-java-examples/src/main/java/org/eclipse/bigiot/lib/examples/ExampleConsumer.java) (Consumer) and [here](https://github.com/BIG-IoT/example-projects/blob/master/more-java-examples/src/main/java/org/eclipse/bigiot/lib/examples/ExampleProvider.java) (Provider).
+* ...
+* Minor fixes:
+   * Socket Timeouts have been increased to: 10sec connect, 10sec write and 10sec read.
+   *
+     
 
 ### 0.9.8
 
