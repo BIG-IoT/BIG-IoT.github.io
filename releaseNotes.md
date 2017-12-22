@@ -11,20 +11,20 @@ NOTE: Update to this version requires a minor change to the Programming API (a n
 
 *Highlighted features and changes since 0.9.8:*
 
-* Support specification of desired Input and Output Data in Offering Queries. This allows Consumers to discover Offerings not only based on the semantic categories, city, price and license, but also based on concrete semantic Input and Output types. 
+* Support **specification of desired Input and Output Data in Offering Queries**. This allows Consumers to discover Offerings not only based on the semantic categories, city, price and license, but also based on concrete semantic Input and Output types. 
    * Sample code extract: `OfferingQuery query = OfferingQuery.create("ParkingQuery")
                 ... 
                 .addInputData(new RDFType("schema:longitude"), ValueType.NUMBER)
                 .addOutputData(new RDFType("schema:longitude"), ValueType.NUMBER)
                 ...`
    * A full Consumer example can is shown [here](https://github.com/BIG-IoT/example-projects/blob/master/more-java-examples/src/main/java/org/eclipse/bigiot/lib/examples/ExampleConsumer.java).      
-* Support Consumers to discover Offerings based on a Query created via the Web Portal.
+* Support Consumers to **discover Offerings by Query ID**, based on a Query created via the Web Portal.
    * `List<SubscribableOfferingDescriptionCore> list = consumer.discoverByIdFuture("... Query ID ...").get();`
-* Support Consumers to directly subscribe to and access an Offering based on the Offering ID.
+* Support Consumers to **subscribe to and access Offerings by Offering ID**.
    * Subscription: `Offering offering = consumer.subscribeByOfferingId("... Offering ID ...").get();`
    * Access: `AccessResponse response = offering.accessOneTime(AccessParameters.create()...).get();`
    * A full Consumer example can is shown [here](https://github.com/BIG-IoT/example-projects/blob/master/more-java-examples/src/main/java/org/eclipse/bigiot/lib/examples/ExampleConsumerSubscriptionById.java).
-* Support for BIG IoT properties has been added to simplify the management and update of Provider and Consumer IDs, Secrets, etc. (incl. application specific properties). How this feature can be used is illustrated here:
+* Support for **BIG IoT properties files** has been added to simplify the management and update of Provider and Consumer IDs, Secrets, etc. (incl. application specific properties). How this feature can be used is illustrated here:
    * Load propertes files: `BridgeIotProperties prop = BridgeIotProperties.load("example.properties");`
    * Use standard BIG IoT properties:
       `ProviderSpark provider = ProviderSpark.create(prop.PROVIDER_ID, prop.MARKETPLACE_URI, prop.PROVIDER_DNS_NAME, prop.PROVIDER_PORT);
