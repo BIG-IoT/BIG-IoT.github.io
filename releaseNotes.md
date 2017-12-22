@@ -11,6 +11,13 @@ NOTE: Update to this version requires a minor change to the Programming API (a n
 
 *Highlighted features and changes since 0.9.8:*
 
+* Support specification of desired Input and Output Data in Offering Queries. This allows Consumers to discover Offerings not only based on the semantic categories, city, price and license, but also based on concrete semantic Input and Output types. 
+   * Sample code extract: `OfferingQuery query = OfferingQuery.create("ParkingQuery")
+                ... 
+                .addInputData(new RDFType("schema:longitude"), ValueType.NUMBER)
+                .addOutputData(new RDFType("schema:longitude"), ValueType.NUMBER)
+                ...`
+   * A full Consumer example can is shown [here](https://github.com/BIG-IoT/example-projects/blob/master/more-java-examples/src/main/java/org/eclipse/bigiot/lib/examples/ExampleConsumer.java).      
 * Support Consumers to discover Offerings based on a Query created via the Web Portal.
    * `List<SubscribableOfferingDescriptionCore> list = consumer.discoverByIdFuture("... Query ID ...").get();`
 * Support Consumers to directly subscribe to and access an Offering based on the Offering ID.
