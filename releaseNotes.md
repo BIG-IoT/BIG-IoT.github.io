@@ -11,9 +11,12 @@ NOTE: Update to this version requires a minor change to the Programming API (a n
 
 *Highlighted features and changes since 0.9.8:*
 
+* Support Consumers to discover Offerings based on a Query created via the Web Portal.
+   * `List<SubscribableOfferingDescriptionCore> list = consumer.discoverByIdFuture("... Query ID ...").get();`
 * Support Consumers to directly subscribe to and access an Offering based on the Offering ID.
    * Subscription: `Offering offering = consumer.subscribeByOfferingId("... Offering ID ...").get();`
    * Access: `AccessResponse response = offering.accessOneTime(AccessParameters.create()...).get();`
+   * A full Consumer example can is shown [here](https://github.com/BIG-IoT/example-projects/blob/master/more-java-examples/src/main/java/org/eclipse/bigiot/lib/examples/ExampleConsumerSubscriptionById.java).
 * Support for BIG IoT properties has been added to simplify the management and update of Provider and Consumer IDs, Secrets, etc. (incl. application specific properties). How this feature can be used is illustrated here:
    * Load propertes files: `BridgeIotProperties prop = BridgeIotProperties.load("example.properties");`
    * Use standard BIG IoT properties:
@@ -22,9 +25,10 @@ NOTE: Update to this version requires a minor change to the Programming API (a n
    * Access application specific properties: `prop.getProperty("defaultFetchInterval");`
    * Full examples on how to use this for a Consumer and Provider is shown [here](https://github.com/BIG-IoT/example-projects/blob/master/more-java-examples/src/main/java/org/eclipse/bigiot/lib/examples/ExampleConsumer.java) (Consumer) and [here](https://github.com/BIG-IoT/example-projects/blob/master/more-java-examples/src/main/java/org/eclipse/bigiot/lib/examples/ExampleProvider.java) (Provider).
 * Minor fixes:
+   * Marketplace access token is automatically updated prior to expiration.
    * Socket Timeouts have been increased to: 10sec connect, 10sec write and 10sec read.
-   *
-     
+   * Optimized `.discover()` and `.discoveryContinuous()`: Consumer Lib creates the query on the marketplace only once - subsequent calls only execute the query. 
+   
 
 ### 0.9.8
 
