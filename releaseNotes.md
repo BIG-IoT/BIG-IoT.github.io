@@ -32,11 +32,9 @@ NOTE: This is a new major release of the BIG IoT Lib. Several new features have 
                 .withCategory("urn:big-iot:ParkingSpaceCategory")
                 .inRegion(BoundingBox.create(Location.create(42.2, 9.1), Location.create(43.0, 9.8)))
                 .addInputData(new RDFType("schema:longitude"), ValueType.NUMBER)
-                .addInputData(new RDFType("schema:latitude"), ValueType.NUMBER)
-                .addInputData(new RDFType("schema:geoRadius"), ValueType.NUMBER)
-                .addOutputData(new RDFType("schema:longitude"), ValueType.NUMBER)
-                .addOutputData(new RDFType("schema:latitude"), ValueType.NUMBER)
+                ...
                 .addOutputData(new RDFType("datex:parkingSpaceStatus"), ValueType.TEXT)
+                ...
                 .withPricingModel(BigIotTypes.PricingModel.PER_ACCESS).withMaxPrice(Euros.amount(0.1))
                 .withLicenseType(LicenseType.OPEN_DATA_LICENSE);
   ```
