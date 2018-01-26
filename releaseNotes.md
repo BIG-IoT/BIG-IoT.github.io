@@ -42,10 +42,26 @@ NOTE: This is a new major version of the BIG IoT Lib. Several new features have 
   
 *Highlighted features and changes since 0.9.9:*
 
-* Support **specification of desired Input and Output Data in Offering Queries**. This allows Consumers to discover Offerings not only based on the semantic categories, city, price and license, but also based on concrete semantic Input and Output types. 
-   * Sample code extract: `OfferingQuery query = OfferingQuery.create("ParkingQuery")
-                ... 
+* Support **specification of a time period (from-to) in offering descriptions / queries**. This allows Providers to define the time period in a data offering, and Consumers to define a time period in the offering query.
+   * Sample code extract for this optional feature (applicable to offering descriptions and queries): 
+       ```
+       .withTimePeriod(new DateTime(2017, 1, 1, 0, 0, 0), new DateTime())
+       ```
+* Support **specification of a geographic region in offering descriptions / queries**. This allows Providers to define the geographic region by means of a region name, city name, or a bounding box in a data offering, and Consumers to define a geographic region in the offering query.
+   * Sample code extract for this optional feature (applicable to offering descriptions and queries): 
+       ```
+       .inRegion(BoundingBox.create(Location.create(42.1, 9.0), Location.create(43.2, 10.0)))
+       .inRegion("Germany")
+       .inCity("Barcelona")
+       ```
+* Support **offerings with restricted access**. This allows Providers to restrict discoverabily of an offering to a set of organization.
+   * Sample code extract for this optional feature (applicable to offering descriptions and queries): 
+       ```
+       .restrictedToOrganizations("Bosch", "ATOS")
+       ```
+* **Accounting support** in Provider and Consumer Lib for access interface. This allows Providers and Consumers to track the access to/of data offerings based on the # of bytes and data records transfered between Providers and Consumers on a subscription + access session basis. Both the Provider and Consumer Lib writes these accounting records in a CSV log file in the directory: `accounting`. It creates different log files for each Provider and Consumer instance based on the name `accounting/<ProviderId>.log` or `accounting/<ConsumerId>.log`.
 
+       
 ### 0.9.9
 
 NOTE: Update to this version requires a minor change to the Programming API (a new BIG IoT Excdeption needs to be handled). All other changes are backward compatibile.
