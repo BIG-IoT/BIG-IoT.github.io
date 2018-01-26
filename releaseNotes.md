@@ -5,6 +5,47 @@ sidebar:
   nav: "docs"
 ---
 
+### 0.10.0  (work-in-progress)
+
+NOTE: This is a new major version of the BIG IoT Lib. Several new features have been introduces (see below) and changes to the Programming API are implied. See here in detail: 
+
+* Creating a registerable Offering Description using the Programming API: 
+    ```
+      RegistrableOfferingDescription offeringDescription = provider.createOfferingDescription("BasicDemoParkingSpotProvider")
+                .withName("Basic Demo Parking Offering")
+                .withCategory("urn:big-iot:ParkingSpaceCategory")
+                .inRegion(BoundingBox.create(Location.create(42.1, 9.0), Location.create(43.2, 10.0)))
+                .addInputData("longitude", new RDFType("schema:longitude"), ValueType.NUMBER)
+                ...
+                .addOutputData("status", new RDFType("datex:parkingSpaceStatus"), ValueType.TEXT)
+                ...
+                .withPrice(Euros.amount(0.001)).withPricingModel(PricingModel.PER_ACCESS)
+                .withLicenseType(LicenseType.OPEN_DATA_LICENSE)
+                .withAccessRequestHandler(accessCallbackDummy);
+  ```
+  
+* Creating an Offering Query using the Programming API:
+   ```
+     OfferingQuery query = OfferingQuery.create("BasicDemoParkingSpotQuery")
+                .withName("Basic Demo Parking Query")
+                .withCategory("urn:big-iot:ParkingSpaceCategory")
+                .inRegion(BoundingBox.create(Location.create(42.2, 9.1), Location.create(43.0, 9.8)))
+                .addInputData(new RDFType("schema:longitude"), ValueType.NUMBER)
+                .addInputData(new RDFType("schema:latitude"), ValueType.NUMBER)
+                .addInputData(new RDFType("schema:geoRadius"), ValueType.NUMBER)
+                .addOutputData(new RDFType("schema:longitude"), ValueType.NUMBER)
+                .addOutputData(new RDFType("schema:latitude"), ValueType.NUMBER)
+                .addOutputData(new RDFType("datex:parkingSpaceStatus"), ValueType.TEXT)
+                .withPricingModel(BigIotTypes.PricingModel.PER_ACCESS).withMaxPrice(Euros.amount(0.1))
+                .withLicenseType(LicenseType.OPEN_DATA_LICENSE);
+  ```
+  
+*Highlighted features and changes since 0.9.9:*
+
+* Support **specification of desired Input and Output Data in Offering Queries**. This allows Consumers to discover Offerings not only based on the semantic categories, city, price and license, but also based on concrete semantic Input and Output types. 
+   * Sample code extract: `OfferingQuery query = OfferingQuery.create("ParkingQuery")
+                ... 
+
 ### 0.9.9
 
 NOTE: Update to this version requires a minor change to the Programming API (a new BIG IoT Excdeption needs to be handled). All other changes are backward compatibile.
