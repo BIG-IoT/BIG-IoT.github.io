@@ -5,9 +5,10 @@ sidebar:
   nav: "docs"
 ---
 
-### 0.10.0  (work-in-progress)
 
-NOTE: This is a new major version of the BIG IoT Lib. Several new features have been introduces (see below) and changes to the Programming API are implied. See here in detail: 
+### 0.10.0 (work-in-progress - planned released on February 5th, 2018)
+
+NOTE: This is a new major release of the BIG IoT Lib. Several new features have been introduces (see below) and changes to the Programming API are implied. See here in detail: 
 
 * Creating a registerable Offering Description using the Programming API: 
     ```
@@ -39,6 +40,7 @@ NOTE: This is a new major version of the BIG IoT Lib. Several new features have 
                 .withPricingModel(BigIotTypes.PricingModel.PER_ACCESS).withMaxPrice(Euros.amount(0.1))
                 .withLicenseType(LicenseType.OPEN_DATA_LICENSE);
   ```
+**Since the Marketplace API (Mx - between Consumer/Provider Lib and Marketplace) has changed, this Lib release (0.10.0) will only work with Marketplace release 0.10.0.**   
   
 *Highlighted features and changes since 0.9.9:*
 
@@ -59,7 +61,8 @@ NOTE: This is a new major version of the BIG IoT Lib. Several new features have 
        ```
        .restrictedToOrganizations("Bosch", "ATOS")
        ```
-* **Accounting support** in Provider and Consumer Lib for access interface. This allows Providers and Consumers to track the access to/of data offerings based on the # of bytes and data records transfered between Providers and Consumers on a subscription + access session basis. Both the Provider and Consumer Lib writes these accounting records in a CSV log file in the directory: `accounting`. It creates different log files for each Provider and Consumer instance based on the name `accounting/<ProviderId>.log` or `accounting/<ConsumerId>.log`.
+* **Accounting support** in Provider and Consumer Lib for access interface. This allows Providers and Consumers to track the access to/of data offerings based on the # of bytes and data records transfered between Providers and Consumers on a subscription + access session basis. Both the Provider and Consumer Lib writes these accounting records in a CSV log file in the directory: `accounting`. It creates different log files for each Provider and Consumer instance based on the name `accounting/<ProviderId>.log` or `accounting/<ConsumerId>.log`
+* Support for **project-internal licenses** of offerings (e.g. `.withLicenseType(LicenseType.PROJECT_INTERNAL_USE_ONLY)`)
 
        
 ### 0.9.9
