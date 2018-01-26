@@ -54,8 +54,8 @@ NOTE: This is a new major release of the BIG IoT Lib. Several new features have 
        .inRegion("Germany")
        .inCity("Barcelona")
        ```
-* Support **offerings with restricted access**. This allows Providers to restrict discoverabily of an offering to a set of organization.
-   * Sample code extract for this optional feature (applicable to offering descriptions and queries): 
+* Support **offerings with restricted access**. This allows Providers to restrict discoverability of an offering (and thus also the ability to subscribe to and access the offering) to a set of organizations.
+   * Sample code extract for this optional feature (applicable to offering descriptions): 
        ```
        .restrictedToOrganizations("Bosch", "ATOS")
        ```
