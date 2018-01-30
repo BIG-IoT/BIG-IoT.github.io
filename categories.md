@@ -2,9 +2,17 @@
 
 ## **Mobility Feature** - RDFType: `urn...` ##
   
-  ### **Parking** - RDFType: `urn...`###
-  * **Traffic**
-  * **Transportation** 
+  ### **Parking** - RDFType: `urn...` ###
+  
+  * ...
+  
+  ### **Traffic** - RDFType: `urn...` ###
+  
+  * ...
+  
+  ### **Transportation** - RDFType: `urn...` ###
+  
+  * ...
 
 ## **Environmental Indicator** - RDFType: `urn...` ##
   
