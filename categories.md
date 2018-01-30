@@ -1,7 +1,7 @@
 # BIG-IoT.github.io
 
 
-##Core BIG IoT Offering Categories##
+==Core BIG IoT Offering Categories==
 
 **Mobility Feature** - RDFType: `urn...`
   * **Parking** - RDFType: `urn...`
