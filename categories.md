@@ -5,7 +5,7 @@ sidebar:
   nav: "docs"
 --- 
 <p>
-  <ul id="root">
+  <ul id="root" style="font-size: 0.7em;">
   </ul>
 </p>
 
