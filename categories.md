@@ -4,8 +4,6 @@ title: BIG IoT Offering Categories
 sidebar: 
   nav: "docs"
 --- 
-# BIG IoT Offering Categories
-
 <p>
   <ul id="root">
   </ul>
