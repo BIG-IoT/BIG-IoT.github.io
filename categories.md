@@ -11,6 +11,7 @@ sidebar:
 
 <script type="text/javascript">
   // TODO fetch from SPARQL endpoint?
+  // query: select ?parent ?child where { graph <http://big-iot.eu/ontologies#> { ?parent <http://www.w3.org/2004/02/skos/core#narrower> ?child . } }
   var sparql = 
     { "head": { "link": [], "vars": ["parent", "child"] },
       "results": { "distinct": false, "ordered": true, "bindings": [
