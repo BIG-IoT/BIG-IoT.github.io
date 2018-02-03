@@ -10,7 +10,8 @@ In this section, we want to describe an example of **complex types**. Complex ty
 
 ```java
 RegistrableOfferingDescription offeringDescription = provider.createOfferingDescription("parkingSpotFinder")
-	.withInformation("Demo Parking Offering", new RDFType("bigiot:Parking"))
+	.withName("Demo Parking Offering")
+	.withCategory("urn:big-iot:ParkingSpaceCategory"))
 	.addInputData("areaSpecification", new RDFType("schema:GeoCircle"), IOData.createMembers()
 		.addInputData("geoCoordinates", new RDFType("schema:geoCoordinates"), IOData.createMembers()
 			.addInputData("longitude", new RDFType("schema:longitude"), ValueType.NUMBER)
@@ -25,8 +26,6 @@ RegistrableOfferingDescription offeringDescription = provider.createOfferingDesc
 	.withPrice(Euros.amount(0.001))
 	.withPricingModel(PricingModel.PER_ACCESS)
 	.withLicenseType(LicenseType.OPEN_DATA_LICENSE) 
-	//Below is actually Offering specific	
-	.withAccessRequestHandler(accessCallbackDummy);
 ```
 
 Let’s expand our previous example with a more complex parking offering. We want to register a parking information offering on the marketplace with the complex type **areaSpecification**, which is described as the semantic RDF type schema:GeoCircle. It consists of the two nested types: geoCoordinates and geoRadius.
@@ -110,7 +109,8 @@ Suppose, we want to integrate air quality information using the public available
 ```java
 RegistrableOfferingDescription airQualityOffering = provider
 	.createOfferingDescription("Open_AQ_AirQualityOffering")
-	.withInformation(new Information("OpenAQ_AirQuality", "bigiot:AirQuality"))
+	.withName("OpenAQ_AirQuality")
+	.withCategory("urn:big-iot:AirPollutionIndicatorCategory")
 	.inRegion(Region.city("Berlin"))
 	.withPrice(Euros.amount(0.01))
 	.withPricingModel(PricingModel.PER_ACCESS)
@@ -124,8 +124,8 @@ RegistrableOfferingDescription airQualityOffering = provider
 	.acceptsJson()
 	.producesJson()
 	.onExternalEndpoint("https://api.openaq.org/v1/measurements");
-
 ```
+
 The BIG IoT Lib supports different ways, how to transmit input parameters when calling a service function of a Web API: parameters can be encoded in the query (...?param1=…&param2=…) via *addInputDataInQuery*, in the path (…/paramValue1/paramValue2) via *addInputDataInPath*, in the message body e.g. as JSON via *addInputDataInBody*, or a combination of all three. 
 In this example, the parameters are added as query parameters in the URL. 
 
@@ -155,13 +155,3 @@ ProviderSpark provider = new ProviderSpark(PROVIDER_ID, MARKETPLACE_URI, "localh
 provider.setProxy("127.0.0.1", 3128);
 provider.addProxyBypass("172.17.17.100");
 ```
-
-### Using Swagger support to describe offerings
-
-Another feature of the BIG IoT Lib allows you to automatically evaluate your offering with Swagger UI. This is useful, for example when you implement a consumer and you want to try different calls. Just add the following line to your provider setup code:
-
-```java
-SwaggerGenerator.deploySwaggerFileFrom(offeringDescription, "hi@bigiot.org");
-```
-Make sure you have added the correct dependencies to your gradle or maven file (group: 'org.bigiot.lib', name: 'bigiot-lib-swagger', version: '0.9.3'). The lib will automatically configure a Spark webserver hosting a dynamic web page with Swagger UI preconfigured with your offering.
-
