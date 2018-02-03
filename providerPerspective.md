@@ -24,16 +24,18 @@ Using the BIG IoT Provider Lib, you can manage your data on the BIG IoT Marketpl
 Before you can register your parking sensor data on the marketplace as an offering, you need to sign-up on the marketplace [here](https://market.big-iot.org/). Once you are logged in, you can create a new Organization for yourself (just click on "New Organization"). In a next step, you can create a new Provider instance (click on "MyProviders" and then "+Provider"). After you created a new Provider, you can copy the unique Provider ID and Secret into your program in order to associate your  Provider application with the newly created Provider instance.
 
 ```java
-String MARKETPLACE_URL = "https://market.big-iot.org";
-String PROVIDER_ID 	= "TestOrganization-TestProvider";
-String PROVIDER_SECRET = "***************************";
+String MARKETPLACE_URL	= "https://market.big-iot.org";
+String PROVIDER_ID     	= "TestOrganization-TestProvider";
+String PROVIDER_SECRET 	= "***************************";
 
 ProviderSpark provider = ProviderSpark.create(PROVIDER_ID, MARKETPLACE_URL, "localhost", 9876)
                                    .authenticate(PROVIDER_SECRET);
 ```
 
-With this in place, you can now create a new Provider instance in the code by providing the Provider ID and Marketplace URL. In this example, we use a *ProviderSpark* object, which is an easy way to create a provider with an embedded Spark Webserver. The webserver is started on the given DNS name or IP address and port, in this case "localhost" and port 9876. However, you can also use the standard *Provider* class, and connect it to an existing webserver (Tomcat, Jetty, etc.).  
-Once you have created a provider, you also need to authenticate this on the marketplace. For this, you need to provide your Provider Secret. This Provider object will be used for all subsequent interactions with the marketplace. 
+With this in place, you can now create a new Provider instance in your application by providing the Provider ID and Marketplace URL. In this example, we use the *ProviderSpark* class, as this offers an easy way to create a provider with an embedded Spark Webserver. The Webserver is started on the given DNS name or IP address and port, in this case "localhost" and port 9876. However, you can also use the standard *Provider* class, and connect it to an existing Webserver (Tomcat, Jetty, etc.).  
+
+Once you have created a provider, you also need to authenticate this on the marketplace. For this, you need to provide your Provider Secret. This provider object will be used for all subsequent interactions with the marketplace. 
+
 
 ### 2. Definition of an Offering Description
 
@@ -95,6 +97,7 @@ Both input and output elements use the *RDFType class* in order to semantically 
 
 Providing a region, a price, a license type and time period (optionally) completes the offering description. 
 
+
 ### 3. Creation of Endpoint for the Offering Description
 
 In the next step, you have to create the endpoint, via which your offering is accessible by consumers. 
@@ -127,6 +130,7 @@ Now that you created the offering description and endpoint, you can register it 
 ```java
 RegisteredOffering offering = provider.register(offeringDescription, endpoints);
 ```
+
 
 ### 5. Implementing of Access Request Handler (only for *ProviderSpark* users)
 
