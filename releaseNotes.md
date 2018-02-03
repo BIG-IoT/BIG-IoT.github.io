@@ -6,12 +6,16 @@ sidebar:
 ---
 
 
-### 0.10.0 (work-in-progress - planned released on February 5th, 2018)
+### 0.10.M1 (work-in-progress - planned released on February 5th, 2018)
 
-NOTE: This is a new major release of the BIG IoT Lib. Several new features have been introduces (see below) and changes to the Programming API are implied. See here in detail: 
+This is a new major release of the BIG IoT Consumer and Provider Lib. 
 
-* Creating a registerable Offering Description using the Programming API: 
-    ```
+**Since the Marketplace API (between Consumer/Provider Lib and Marketplace) has changed, this Lib release will only work with Marketplace release 0.10.M1.**  
+
+Several new features have been introduces (see below) and changes to the Programming API are implied. See details here: 
+
+* Creating a Offering Description using the Programming API (see new methods `withName()`, `withCategory()`): 
+    ```java
       RegistrableOfferingDescription offeringDescription = provider.createOfferingDescription("BasicDemoParkingSpotProvider")
                 .withName("Basic Demo Parking Offering")
                 .withCategory("urn:big-iot:ParkingSpaceCategory")
@@ -25,8 +29,8 @@ NOTE: This is a new major release of the BIG IoT Lib. Several new features have 
                 .withAccessRequestHandler(accessCallbackDummy);
   ```
   
-* Creating an Offering Query using the Programming API:
-   ```
+* Creating an Offering Query using the Programming API (see new methods `withName()`, `withCategory()`):
+   ```java
      OfferingQuery query = OfferingQuery.create("BasicDemoParkingSpotQuery")
                 .withName("Basic Demo Parking Query")
                 .withCategory("urn:big-iot:ParkingSpaceCategory")
@@ -38,9 +42,12 @@ NOTE: This is a new major release of the BIG IoT Lib. Several new features have 
                 .withPricingModel(BigIotTypes.PricingModel.PER_ACCESS).withMaxPrice(Euros.amount(0.1))
                 .withLicenseType(LicenseType.OPEN_DATA_LICENSE);
   ```
-**Since the Marketplace API (Mx - between Consumer/Provider Lib and Marketplace) has changed, this Lib release (0.10.0) will only work with Marketplace release 0.10.0.**   
-  
-*Highlighted features and changes since 0.9.9:*
+ 
+***NOTE: The most important change is that from this release onwards, Offering Descriptions created through the Provider Lib can only use existing semantic offering types or categories. 
+   * A full list of already defined and supported semantic categories is available [here](https://big-iot.github.io/categories/). However, via the Marketplace user interface, you can also propose new categories during creation of an offering. Those "proposed" categories  can then also be used in your code. 
+   * New semantic types for input and output data can be directly created via the code. Just use the keyword '"proposed"' in front of your new type (e.g. '"proposed:randomValue"').*** 
+
+***Highlighted features and changes since 0.9.9:***
 
 * Support **specification of a time period (from-to) in offering descriptions / queries**. This allows Providers to define the time period in a data offering, and Consumers to define a time period in the offering query.
    * Sample code extract for this optional feature (applicable to offering descriptions and queries): 
@@ -60,14 +67,31 @@ NOTE: This is a new major release of the BIG IoT Lib. Several new features have 
        .restrictedToOrganizations("Bosch", "ATOS")
        ```
 * **Accounting support** in Provider and Consumer Lib for access interface. This allows Providers and Consumers to track the access to/of data offerings based on the # of bytes and data records transfered between Providers and Consumers on a subscription + access session basis. Both the Provider and Consumer Lib writes these accounting records in a CSV log file in the directory: `accounting`. It creates different log files for each Provider and Consumer instance based on the name `accounting/<ProviderId>.log` or `accounting/<ConsumerId>.log`
+
 * Support for **project-internal licenses** of offerings (e.g. `.withLicenseType(LicenseType.PROJECT_INTERNAL_USE_ONLY)`)
 
+* Support for **external BIG IoT provider endpoints** has been added. This allows a Provider to register an offering that is hosted on an external BIG IoT provider. The endpoint can be specified and registered as follows:
+    ```java
+        RegistrableOfferingDescription offeringDescription =
+                OfferingDescription.createOfferingDescription("DemoParkingOfferingWithExternalProvider")
+                        .withName("Demo Parking Offering With External Provider")
+                        ...
+                        .withLicenseType(LicenseType.PROJECT_INTERNAL_USE_ONLY);
+    
+        Endpoints endpoints = Endpoints.create(offeringDescription)
+                                       .withEndpointUri("https://127.0.0.1:9443/test");
+
+        provider.register(offeringDescription, endpoints);
+    ```
+       
+ * Further example provider and consumer Java programs are provided [here](https://github.com/BIG-IoT/example-projects/tree/master/more-java-examples/src/main/java/org/eclipse/bigiot/lib/examples).
+ 
        
 ### 0.9.9
 
 NOTE: Update to this version requires a minor change to the Programming API (a new BIG IoT Excdeption needs to be handled). All other changes are backward compatibile.
 
-*Highlighted features and changes since 0.9.8:*
+***Highlighted features and changes since 0.9.8:***
 
 * Support **specification of desired Input and Output Data in Offering Queries**. This allows Consumers to discover Offerings not only based on the semantic categories, city, price and license, but also based on concrete semantic Input and Output types. 
    * Sample code extract: `OfferingQuery query = OfferingQuery.create("ParkingQuery")
@@ -99,7 +123,7 @@ NOTE: Update to this version requires a minor change to the Programming API (a n
 
 NOTE: No update to Programming API required. 
 
-*Highlighted features and changes since 0.9.7:*
+***Highlighted features and changes since 0.9.7:***
 
 * Support Consumers to use `.discoverContinuous(...)` by defining callback functions and a frequency in seconds. See an example consumer [here](https://github.com/BIG-IoT/example-projects/blob/master/more-java-examples/src/main/java/org/eclipse/bigiot/lib/examples/ExampleConsumerDiscoverContinuous.java).
 * Added example provider for usage of access stream feature (introduced in version 0.9.7). See [here](https://github.com/BIG-IoT/example-projects/blob/master/more-java-examples/src/main/java/org/eclipse/bigiot/lib/examples/ExampleProviderAccessStream.java). 
@@ -114,7 +138,7 @@ NOTE: No update to Programming API required.
 
 NOTE: Update to this version requires a minor change to the Programming API (see the `AccessRequestHandler` below). All other changes are backward compatibile.
 
-*Highlighted features and changes since 0.9.6:*
+***Highlighted features and changes since 0.9.6:***
 
 * Extended Consumer Lib to also access Offerings with an HTTP endpoint (before only HTTPS was supported)
 * Extended AccessRequestHandler to also provide the Subscriber Id and Consumer information in the callback function
