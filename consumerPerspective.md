@@ -31,32 +31,54 @@ Consumer consumer = Consumer.create(CONSUMER_ID, CONSUMER_SECRET)
 			    .authenticate(CONSUMER_SECRET);
 ```
 
-With this in place, you can now create a new Provider instance in your application by providing the Provider ID and Marketplace URL.
+With this in place, you can now create a new Consumer instance in your application by providing the Consumer ID and Marketplace URL. In a next step, you need to authenticate this on the marketplace using your Consumer Secret.
 
-To get started with the Consumer Lib, you have to create an instance of the *Consumer* class. The constructor requires your specific consumer ID and a marketplace URI. 
-To authenticate with the marketplace, you have to use the *authenticate* method provided by the consumer object. This method requires the marketplace API key and a consumer certificate, which you both received after registration on the BIG IoT Marketplace portal.
-
+If you want to connect to multiple marketplaces, just repeat the previous steps and create another Consumer instance. 
 
 
-If you want to connect to a different marketplace, just repeat the previous steps and create another Consumer object. 
-
-### Creating a Query for Offering Descriptions
+### 2. Discovering Offerings on the Marketplace according to a Query specification
 
 Now, that you are authenticated at the marketplace, you can search for relevant parking sensor data to feed into your service.  
+#### 2.1 Based on an Offering Query created via the Marketplace Web portal
 
-To do that, you query the marketplace using the *OfferingQuery* object. The query gets constructed using a builder pattern which first, creates the empty OfferingQuery object that is completed with additional query filters, such as a specific search region, a desired accounting type, a maximum price, etc. The marketplace will later retrieve all matching offerings for this query. In this example, the query is quite simple however it can be more complex in other situations.
+In case you have already created an Offering Query via the Marketplace Web poral, you can simply call the `discoverById()` method by using the Query ID, as shown here:
 
 ```java
-OfferingQuery query = Consumer.createOfferingQuery()
-	.withInformation(new Information("Parking Information Query", "http://schema.org/parking"))
-	.inRegion(Region.city("Barcelona"))
-	.withPricingModel(PricingModel.PER_ACCESS)
-	.withMaxPrice(Euros.amount(0.001))
-	.withLicenseType(LicenseType.OPEN_DATA_LICENSE);
+  List<SubscribableOfferingDescription> offeringDescriptions = 
+                consumer.discoverById("TestOrganization-TestConsumer-DemoParkingQuery").get();
 ```
 
-First we create a query. The type of offerings returned should be of type http://schema.org/parking. The types of offerings, which are available can be evaluated using the online documentation of the BIG IoT Marketplace.  
-The query is using a region filter that selects only offerings that are provided in the city of Barcelona. Also the pricing mode should be based on the number of accesses and not, for example, on a monthly fee. The price should not exceed 0.1 cents per access and the data license should be the Open Data License. The Consumer Lib offers you Enum classes that you can consult to see, which other licenses or accounting types are available.
+In return, the Marketplace provides a list of all matching offerings. 
+
+#### 2.2. Based on an Offering Query created in program code
+
+Alternatively, you can also create your Offering Query from scratch in your appliation. The query gets constructed using a builder pattern which first, creates the empty OfferingQuery object that is completed with additional query filters, such as a specific search region, a desired accounting type, a maximum price, etc. The marketplace will later retrieve all matching offerings for this query. In this example, the query is quite simple however it can be more complex in other situations.
+
+```java
+OfferingQuery query = OfferingQuery.create("DemoParkingQuery")
+                .withName("Demo Parking Query")
+                .withCategory("urn:big-iot:ParkingSpaceCategory")
+                .withTimePeriod(TimePeriod.create(new DateTime(1999, 1, 1, 0, 0, 0), new DateTime()))
+                .inRegion(BoundingBox.create(Location.create(40.0, 8.0), Location.create(45.0, 12.0)))
+		// .inCity("Barcelona")
+                .addInputData(new RDFType("schema:longitude"), ValueType.NUMBER)
+                .addInputData(new RDFType("schema:latitude"), ValueType.NUMBER)
+                .addOutputData(new RDFType("schema:longitude"), ValueType.NUMBER)
+                .addOutputData(new RDFType("schema:latitude"), ValueType.NUMBER)
+                .addOutputData(new RDFType("datex:parkingSpaceStatus"), ValueType.TEXT)
+                .withPricingModel(BigIotTypes.PricingModel.PER_ACCESS)
+		.withMaxPrice(Euros.amount(0.5))
+                .withLicenseType(LicenseType.CREATIVE_COMMONS);
+```
+
+When creating the Offering Query, you need to provide an ID (here "DemoParkingQuery") and a name (here "Demo Parking Query") for it. Also it is important to define a semantic type or category (here "urn:big-iot:ParkingSpaceCategory") in order for the marketplace to return only relevant types for your consumer application. 
+
+***NOTE 1: A full list of already defined and supported semantic categories is available here. Via the Marketplace user interface, you can also create new categories during creation of an offering. Those ‘“proposed”’ types can then also be used in your code.
+
+Offerings queries can use temporal (`withTimePeriod()`) and spatial (`withRegin()` or `inCity()`) filters that ensures that only relevant offerings are returned. Also the pricing model and a maximum price, as well as the desired license type can be defined. The Consumer Lib offers you Enum classes that you can consult to see, which other licenses or accounting types are available.
+
+Finally, you can also define input and output parameters that you expect in the offerings. 
+
 
 ### Querying the Marketplace
 
@@ -98,6 +120,7 @@ The callback function in this example again just prints the returned offering de
 As a side note: You can reuse your query object for subsequent queries. Only if you want to change something regarding the query you have to create a new *OfferingQuery* object.
 
 ### Using SelectionCriteria
+
 By using the *SelectionCriteria* class, you can specify a rule which is used by the BIG IoT Lib to filter offerings. You can define the selection criteria based on you service logic needs, by creating a new SelectionCriteria instance. To create a new selection, you use the *OfferingSelector* class, which accepts an arbitrary amount of *SelectionCriteria* objects. In the example below, we discover a list of offerings and apply an *OfferingSelector*, that selects based on cheapest offerings that have the most permissive license.
 
 ```java
