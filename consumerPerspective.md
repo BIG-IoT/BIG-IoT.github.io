@@ -8,21 +8,36 @@ sidebar:
 Assuming, you want to create a new parking app for the city of Barcelona that is supposed to display parking data on a web dashboard for different places in the city. Using the BIG IoT Consumer Lib, it is very easy to make your service query the BIG IoT Marketplace relevant data sources and access them.
 
 The Consumer Lib offers the following main functionalities:
-*	Discovering offerings at the Marketplace according to a search specification
-*	Subscribing to offerings
-*	Accessing offerings in per request or in a continuous fashion
+1. Creation of a BIG IoT Consumer and authentication on the Marketplace
+2. Discovering Offerings on the Marketplace according to a Query specification
+3. Subscribing to Offerings of interest 
+   * Based on known Offering ID
+   * Based on discovered Offerings
+4. Accessing Offerings based on a one-time request or in a continuous fashion
+
+The complete java program of this example is available [here](https://github.com/BIG-IoT/example-projects/blob/master/more-java-examples/src/main/java/org/eclipse/bigiot/lib/examples/ExampleConsumer.java).
 
 
-### Authentication on a BIG IoT Marketplace
+### 1. Creation of a BIG IoT Consumer and Authentication on the Marketplace
+
+Before you can consume offerings available on the marketplace, you need to sign-up on the marketplace [here](https://market.big-iot.org/). Once you are logged in, you can create a new Organization for yourself (just click on “New Organization”). In a next step, you can create a new Consumer instance (click on “MyConsumers” and then “+Consumer”). After you created a new Consumer, you can copy the unique Consumer ID and Secret into your program in order to associate your Consumer application with the newly created Consumer instance on the marketplace.
+
+```java
+String MARKETPLACE_URL	= "https://market.big-iot.org";
+String CONSUMER_ID 	= "TestOrganization-TestConsumer";
+String CONSUMER_SECRET 	= "***************************";
+
+Consumer consumer = Consumer.create(CONSUMER_ID, CONSUMER_SECRET)
+			    .authenticate(CONSUMER_SECRET);
+```
+
+With this in place, you can now create a new Provider instance in your application by providing the Provider ID and Marketplace URL.
 
 To get started with the Consumer Lib, you have to create an instance of the *Consumer* class. The constructor requires your specific consumer ID and a marketplace URI. 
 To authenticate with the marketplace, you have to use the *authenticate* method provided by the consumer object. This method requires the marketplace API key and a consumer certificate, which you both received after registration on the BIG IoT Marketplace portal.
 
-```java
-Consumer consumer = new Consumer("Barcelona_Parking", "https://market.big-iot.org");
-// Authenticate on the marketplace 
-consumer.authenticate("*****");
-```
+
+
 If you want to connect to a different marketplace, just repeat the previous steps and create another Consumer object. 
 
 ### Creating a Query for Offering Descriptions
