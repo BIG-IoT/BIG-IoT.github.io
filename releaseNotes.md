@@ -43,9 +43,9 @@ Several new features have been introduces (see below) and changes to the Program
                 .withLicenseType(LicenseType.OPEN_DATA_LICENSE);
   ```
  
-**NOTE: The most important change is that from this release onwards, Offering Descriptions created through the Provider Lib can only use existing semantic offering types or categories. 
-   * A full list of already defined and supported semantic categories is available [here](https://big-iot.github.io/categories/). However, via the Marketplace user interface, you can also propose new categories during creation of an offering. Those "proposed" categories  can then also be used in your code. 
-   * New semantic types for input and output data can be directly created via the code. Just use the keyword '"proposed"' in front of your new type (e.g. '"proposed:randomValue"').**
+***NOTE: The most important change is that from this release onwards, Offering Descriptions created through the Provider Lib can only use existing semantic offering types or categories.***
+   * ***A full list of already defined and supported semantic categories is available [here](https://big-iot.github.io/categories/). However, via the Marketplace user interface, you can also propose new categories during creation of an offering. Those "proposed" categories  can then also be used in your code.***
+   * ***New semantic types for input and output data can be directly created via the code. Just use the keyword '"proposed"' in front of your new type (e.g. '"proposed:randomValue"').***
 
 ***Highlighted features and changes since 0.9.9:***
 
