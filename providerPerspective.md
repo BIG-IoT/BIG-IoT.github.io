@@ -92,7 +92,15 @@ Both input and output elements use the *RDFType class* in order to semantically 
 
 Providing a region, a price, a license type and time period (optionally) completes the offering description. 
 
+### Creation of Endpoints
 
+In the next step, you have to create the Endpoint, via which your offering is accessible by consumers. 
+
+
+```java
+Endpoints endpoints = Endpoints.create(offeringDescription)
+                               .withAccessRequestHandler(accessCallback);
+```
 
 The route defines the endpoint URL to your platform. Using the *withAccessRequestHandler* method, you specify an access callback (see chapter 3.3.4) that will be called automatically, once a consumer accesses your offering.
 
@@ -101,7 +109,7 @@ The route defines the endpoint URL to your platform. Using the *withAccessReques
 Now that you created the offering description, it should be registered on the Marketplace so that other developers can find it. You will use the register method for that, which returns an instance of *RegisteredOffering* to control the offering state:
 
 ```java
-RegisteredOffering offering = offeringDescription.register();
+RegisteredOffering offering = provider.register(offeringDescription, endpoints);
 ```
 
 ### Implementing the access Callback
