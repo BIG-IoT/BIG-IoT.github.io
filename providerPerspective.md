@@ -9,58 +9,92 @@ Assuming, you have developed an IoT platform for parking data. Now you want to m
 
 Using the BIG IoT Provider Lib, you can manage your data on the BIG IoT Marketplace in terms of offerings. The Provider Lib offers the following main functionalities:
 
-* Creation of an Offering Description
+* Creation of a BIG IoT Provider and Authentication on the Marketplace
+* Definition of an Offering Description
+   * Based on a pre-defined one via the Marketplace Web portal
+   * Based on program code 
 * Creation of Endpoints (by providing an access callback function)
-* Registration of offerings
+* Registration of the Offering Description with its Endpoints
 
+### Creation of a BIG IoT Provider and Authentication on the Marketplace
 
-### Authentication on the Marketplace
-
-Before you can register your parking sensor data on the marketplace as an offering, you need to authenticate with the marketplace [here](https://market.big-iot.org/). Once you logged in, you can create a new Organization for yourself (just click on "New Organization"). In a next step, you can create a new Provider instance (just click on "MyProviders" and then "+Provider"). After you created a new Provider, you can copy the Provider ID and Secret into your code.  
+Before you can register your parking sensor data on the marketplace as an offering, you need to sign-up on the marketplace [here](https://market.big-iot.org/). Once you are logged in, you can create a new Organization for yourself (just click on "New Organization"). In a next step, you can create a new Provider instance (click on "MyProviders" and then "+Provider"). After you created a new Provider, you can copy the unique Provider ID and Secret into your program in order to associate your  Provider application with the newly created Provider instance.
 
 ```java
 String MARKETPLACE_URL = "https://market.big-iot.org";
-String PROVIDER_ID 	= "TestOrganization-DemoProvider";
-String PROVIDER_SECRET = "****";
+String PROVIDER_ID 	= "TestOrganization-TestProvider";
+String PROVIDER_SECRET = "***************************";
+
 ProviderSpark provider = ProviderSpark.create(PROVIDER_ID, MARKETPLACE_URL, "localhost", 9876)
                                    .authenticate(PROVIDER_SECRET);
 ```
 
-First of all, you create a Provider instance, passing a Provider ID and a Marketplace URL you want to connect to. In our example, we use a *ProviderSpark* object, which is an easy way to create a provider with an embedded Spark Webserver. The webserver is started on the given URL and port, in this case localhost on port 9876. However, you can also use the standard *Provider* class, and connect it to an existing webserver (Tomcat, Jetty, etc.).  
-When creating a provider at the marketplace, you receive a unique Provider ID and Secret. You pass this data to the provider objects authenticate function in order to finish your authentication on the marketplace. The Provider object will be used for all subsequent interactions with the marketplace. 
+With this in place, you can now create a new Provider instance in the code by providing the Provider ID and Marketplace URL. In this example, we use a *ProviderSpark* object, which is an easy way to create a provider with an embedded Spark Webserver. The webserver is started on the given DNS name or IP address and port, in this case "localhost" and port 9876. However, you can also use the standard *Provider* class, and connect it to an existing webserver (Tomcat, Jetty, etc.).  
+Once you have created a provider, you also need to authenticate this on the marketplace. For this, you need to provide your Provider Secret. This Provider object will be used for all subsequent interactions with the marketplace. 
 
-### Create an Offering
+### Definition of an Offering Description
 
-Now, that you are authenticated you can create an offering for your parking data. The next code block shows how you can use the *Offering* class to do this:
+Now, that you have created a Porvider instance and authenticated it on the Marketplace, you can create an offering description for your parking data.
+
+#### Based on a pre-defined one via the Marketplace Web portal
+
+In case you have already created an Offering Description via the Marketplace Web poral, you can simply create a local instance in your code with the following call:
 
 ```java
-RegistrableOfferingDescription offeringDescription = provider
-	.createOfferingDescription("parking_info_offering")
-	.withInformation("Demo Parking Offering", new RDFType("bigiot:Parking"))
-	.addInputData("longitude", new RDFType("schema:longitude"), ValueType.NUMBER)
-	.addInputData("latitude", new RDFType("schema:latitude"), ValueType.NUMBER)
-	.addInputData("radius", new RDFType("schema:radius"), ValueType.NUMBER)
-	.addOutputData("longitude", new RDFType("schema:longitude"), ValueType.NUMBER)
-	.addOutputData("latitude", new RDFType("schema:latitude"), ValueType.NUMBER)
-	.addOutputData("status", new RDFType("datex:parkingSpaceStatus"), ValueType.TEXT)
-	.inCity("Barcelona")
-	.withPrice(Euros.amount(0.001))
-	.withPricingModel(PricingModel.PER_ACCESS)
-	.withLicenseType(LicenseType.OPEN_DATA_LICENSE) 
-	// Below is actually Offering specific	
-	.withRoute("parking")
-	.withAccessRequestHandler(accessCallbackParking);
+RegistrableOfferingDescription offeringDescription = 
+	provider.createOfferingDescriptionFromOfferingId("TestOrganization-TestProvider-DemoParkingOffering")
+		// optional modify the offering description in your code, e.g. 
+		.withPrice(Euros.amount(0.02))
+		.withPricingModel(PricingModel.PER_ACCESS)
+		.withLicenseType(LicenseType.CREATIVE_COMMONS);
+``` 
+
+If you want to alter that offering description in your code, you do this as illustrated above. With calls like `.withPrice()`, or `.withLicenseType()`, `.inRegion()`, `withTimePeriod()`, etc. you can alter the offering decription according to your needs.
+
+#### Based on program code 
+
+Similarly to the above, you can also create your offering description from scratch in your appliation. For example:
+
+```java
+RegistrableOfferingDescription offeringDescription = 
+	OfferingDescription.createOfferingDescription("DemoParkingOffering")
+		.withName("Demo Parking Offering")
+		.withCategory("urn:big-iot:ParkingSpaceCategory")
+		.withTimePeriod(new DateTime(2017, 1, 1, 0, 0, 0), new DateTime())
+		.inRegion(BoundingBox.create(Location.create(42.1, 9.0), Location.create(43.2, 10.0)))
+		// .inCity("Barcelona")
+		.addInputData("longitude", new RDFType("schema:longitude"), ValueType.NUMBER)
+		.addInputData("latitude", new RDFType("schema:latitude"), ValueType.NUMBER)
+		.addInputData("radius", new RDFType("schema:geoRadius"), ValueType.NUMBER)
+		.addOutputData("lon", new RDFType("schema:longitude"), ValueType.NUMBER)
+		.addOutputData("lat", new RDFType("schema:latitude"), ValueType.NUMBER)
+		.addOutputData("status", new RDFType("datex:parkingSpaceStatus"), ValueType.TEXT)
+		.withPrice(Euros.amount(0.02))
+		.withPricingModel(PricingModel.PER_ACCESS)
+		.withLicenseType(LicenseType.CREATIVE_COMMONS);
 ```
 
-The *OfferingDescription* class provides a builder method that lets you easily create a new offering. For your offering to be visible on the marketplace, you have to provide a name for it. Also it is important to define a type for the offering so that consumers can automatically find it (see Consumer section).  
+The *OfferingDescription* class provides a builder method that lets you easily create a new offering description. For your offering to be visible on the marketplace, you have to provide an ID (here `"DemoParkingOffering"`) and a name (here `"Demo Parking Offering"`)for it. Also it is important to define a semantic type or category (here `"urn:big-iot:ParkingSpaceCategory"`) so that consumers can find it if they are interested in these type of offerings. 
 
-Additionally, you can define input parameters that can be set by your service’s consumers when accessing your platform. Here, we provide an example how to add location based filters as input elements to your offering.  
+**NOTE 1: A full list of already defined and supported semantic categories is available [here](https://big-iot.github.io/categories/). Via the Marketplace user interface, you can also create new categories during creation of an offering. Those '"proposed"' types can then also be used in your code.**
 
-You provide the output of your offering through the *addOutputData* method which are the parking spot coordinates and the parking spot status in this example. The consumer of your data will have the possibility to query for data within a specific area. He will retrieve data that conforms to the schema of the type http://schema.org/parking.  
+**NOTE 2: Using the right semantic catgory for your offering is very important for consumers to find it. So, try to use existing and well established categories whenever there is a good fit. If not, propose a new category that is meaningful.**
+ 
+Additionally, you can define input parameters that can be set by your service’s consumers when accessing your platform (see `.addInputData()`). Here, we provide an example how to add a circle based filter (define by a location - i.e. a longitude and latitude of type `"schema:longitude"` and `"schema:latitude"` respectively - and radius of type `"schema:geoRadius"`) as input elements to your offering.  
 
-Both input and output elements use the *RDFType class* which makes it easy to semantically annotate your data. **This is very important for consumers to find your offerings, so be thoughtful with your annotations!**  
+You also have to provide information what your Offering will provide. This is specified my means of the `.addOutputData()` method. In our example, this are the parking space coordinates and the parking space status. The consumer of your offering will have the possibility to query for data within a specific area. He will obtain the data in form of a JSON Array, where each element consists of one parking space, consisting of at least a property with the name `"lon"` (of type `"schema:longitude"`), `"lat"` (of type `"schema:latitude"`) and `"status"` (of type `"datex:parkingSpaceStatus"`). 
 
-Providing a region, a price, a license type and a route completes the offering description. The route defines the endpoint URL to your platform. Using the *withAccessRequestHandler* method, you specify an access callback (see chapter 3.3.4) that will be called automatically, once a consumer accesses your offering.
+Both input and output elements use the *RDFType class* in order to semantically annotate your data. 
+
+**NOTE 3: New semantic types for input and output data can be directly created via the code. Just use the keyword '"proposed"' in front of your new type (e.g. '"proposed:parkingSpaceType"').**
+
+**NOTE 4: Using well estabished semantic types your input and output data is very important for consumers to find the relevant offerings and to process the data correctly. Try to use existing and well established types whenever possible. If not, propose a new type that is meaningful.**
+
+Providing a region, a price, a license type and time period (optionally) completes the offering description. 
+
+
+
+The route defines the endpoint URL to your platform. Using the *withAccessRequestHandler* method, you specify an access callback (see chapter 3.3.4) that will be called automatically, once a consumer accesses your offering.
 
 ### Registration of Offerings
 
