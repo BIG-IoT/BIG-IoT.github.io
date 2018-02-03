@@ -9,27 +9,25 @@ Assuming, you have developed an IoT platform for parking data. Now you want to m
 
 Using the BIG IoT Provider Lib, you can manage your data on the BIG IoT Marketplace in terms of offerings. The Provider Lib offers the following main functionalities:
 
+* Creation of an Offering Description
+* Creation of Endpoints (by providing an access callback function)
 * Registration of offerings
-* Activation and deactivation of offerings
-*	Renewing offerings
-*	Providing access callbacks
 
 
 ### Authentication on the Marketplace
 
-Before you can register your parking sensor data on the marketplace as an offering, you need to authenticate with the marketplace. 
+Before you can register your parking sensor data on the marketplace as an offering, you need to authenticate with the marketplace [here](https://market.big-iot.org/). Once you logged in, you can create a new Organization for yourself (just click on "New Organization"). In a next step, you can create a new Provider instance (just click on "MyProviders" and then "+Provider"). After you created a new Provider, you can copy the Provider ID and Secret into your code.  
 
 ```java
 String MARKETPLACE_URL = "https://market.big-iot.org";
 String PROVIDER_ID 	= "TestOrganization-DemoProvider";
 String PROVIDER_SECRET = "****";
-ProviderSpark provider = new ProviderSpark(PROVIDER_ID, MARKETPLACE_URL, "localhost", 9020); 
-provider.authenticate(PROVIDER_SECRET);
-
+ProviderSpark provider = ProviderSpark.create(PROVIDER_ID, MARKETPLACE_URL, "localhost", 9876)
+                                   .authenticate(PROVIDER_SECRET);
 ```
 
-First of all, you create a Provider instance, passing a Provider ID and a Marketplace URL you want to connect to. In our example, we use a *ProviderSpark* object, which is an easy way to create a provider with an embedded Spark webserver. The webserver is started on the given URL and port, in this case localhost on port 9020. However, you can also use the standard *Provider* class, and connect it to an existing webserver (Tomcat, Jetty, etc.).  
-When creating a provider at the marketplace, you receive a unique ID and a token. You pass this data to the provider objects authenticate function in order to finish your authentication on the marketplace. The Provider object will be used for all subsequent interactions with the marketplace. 
+First of all, you create a Provider instance, passing a Provider ID and a Marketplace URL you want to connect to. In our example, we use a *ProviderSpark* object, which is an easy way to create a provider with an embedded Spark Webserver. The webserver is started on the given URL and port, in this case localhost on port 9876. However, you can also use the standard *Provider* class, and connect it to an existing webserver (Tomcat, Jetty, etc.).  
+When creating a provider at the marketplace, you receive a unique Provider ID and Secret. You pass this data to the provider objects authenticate function in order to finish your authentication on the marketplace. The Provider object will be used for all subsequent interactions with the marketplace. 
 
 ### Create an Offering
 
