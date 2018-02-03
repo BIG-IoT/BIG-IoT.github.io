@@ -132,7 +132,7 @@ RegisteredOffering offering = provider.register(offeringDescription, endpoints);
 ```
 
 
-### 5. Implementing of Access Request Handler (only for *ProviderSpark* users)
+### 5. Implementing of Access Request Handler (only for *ProviderSpark*)
 
 As indicated above (Section 3, Option 1), the *ProviderSpark* users will also have to implement an access request handler, which will be called by the provider lib each time an authorized access request is received on the embedded Spark Webserver.
 
@@ -172,7 +172,7 @@ If any of the possible filters have been used, we pass them to a service functio
 
 The *AccessRequestHandler* is implemented as a functional interface. If you prefer, you can also provide the application logic in the Lambda notation.
 
-**Congratulations! You have created your first offering on the BIG IoT Marketplace.**
+**Congratulations! You have now registered your first offering on the BIG IoT Marketplace.**
 
 
 ### 6. Offering deactivation and Provider termination
