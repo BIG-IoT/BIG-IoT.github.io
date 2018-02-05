@@ -105,49 +105,50 @@ The discover call is actually non-blocking. So, you could do something in betwee
 listFuture.thenApply(SubscribableOfferingDescription::showOfferingDescriptions);
 ```
 
+As a side note: You can reuse your query object for subsequent queries. Only if you want to change something regarding the query you have to create a new *OfferingQuery* object.
+
+
 ### 3. Subscribing to Offerings of interest 
 
-Before you can access an offering, you have to subscribe to the offering. Subscription is done through the correspondent *subscribe* method which returns an Offering object. The offering object provides different access methods as described later.
+Before an offering can be accessed, you have to subscribe to the offering. Subscription is done through the correspondent *subscribe* method, which creates a an *Offering* object upon success. As part of the subscription process the consumer lib obtains the requried access token for the respective offering, which is checked by the provider upon access to the offering.
 
 #### 3.1 Based on known Offering ID
 
-```java
-Offering offering = consumer.subscribeById("").get();
-```
-
-#### 3.2 Based on discovered Offerings
-
-*SubscribableOfferingDescription* object. Subscription is done through the correspondent *subscribe* method which returns an Offering object. The offering object provides different access methods as described later.
-
-Before you can utilize an offering, you have to subscribe to the OfferingDescription object. Subscription is done through the correspondent *subscribe* method which returns an Offering object. The offering object provides different access methods as described later.
-You can alternatively also use callbacks for discovering offerings. Here is an example how to achieve that:
+If you already know the ID of the offering you want to subscribe to, you can also skip the discovery phase (step 2) and directly subscribe to the offering based on its ID, as follows:
 
 ```java
-query.discover((r,l) -> { 
-  SubscribableOfferingDescription.showOfferingDescriptions(l) 
-});
+Offering offering = consumer.subscribeByOfferingId("TestOrganization-TestProvider-DemoParkingOffering").get();
 ```
 
-The callback function in this example again just prints the returned offering descriptions, however usually you would provide your offering selection logic here, that selects the appropriate offerings for your use case. The example utilizes the functional programming features introduced in Java 8. With lambdas you can express functionality without much boilerplate code. Alternatively every other instance of DiscoverResponseHandler is accepted by *discover*. 
+#### 3.2 Based on discovered Offerings 
 
-As a side note: You can reuse your query object for subsequent queries. Only if you want to change something regarding the query you have to create a new *OfferingQuery* object.
+Alternatively, if you used the discovery phase (step 2) to find offerings of interest, you receive a list of 
+*SubscribableOfferingDescription* objects as a result. 
 
-### Using SelectionCriteria
+You can either select the offerings you want to subscribe by inspecting their properties in your own selection routine
+or by using the *SelectionCriteria* class of the BIG IoT lib. 
 
-By using the *SelectionCriteria* class, you can specify a rule which is used by the BIG IoT Lib to filter offerings. You can define the selection criteria based on you service logic needs, by creating a new SelectionCriteria instance. To create a new selection, you use the *OfferingSelector* class, which accepts an arbitrary amount of *SelectionCriteria* objects. In the example below, we discover a list of offerings and apply an *OfferingSelector*, that selects based on cheapest offerings that have the most permissive license.
+The *SelectionCriteria* class allows you to define the selection criteria based on your service logic needs, by creating a new SelectionCriteria instance. To create a new selection, you use the *OfferingSelector* class, which accepts an arbitrary amount of *SelectionCriteria* objects. In the example below, we discover a list of offerings and apply an *OfferingSelector* that selects the cheapest offerings. In case there are several cheapest offerings, the selector picks the one with the one with the most permissive license.   
 
 ```java
-consumer.discover(query)
-.thenApply((list) -> OfferingSelector
-    	.create()
-   	.cheapest()
-    	.mostPermissive()
-	.select(list));
+SubscribableOfferingDescription offeringDescription = 
+		    consumer.discover(query)
+			    .thenApply( (list) -> OfferingSelector.create()
+					                 	  .cheapest()
+					     			  .mostPermissive()
+					    			  .select(list))
+	        	    .get();
 ```
 
-### Accessing Offerings
+Once a *SubscribableOfferingDescription* has been selected, the subscription is done as follows:
 
-Before we describe how to access an offering that was retrieved from the marketplace, it makes sense that you look at the different access concepts provided. The *IOffering* interface provides the following signatures for access:
+```java
+Offering offering = offeringDescription.subscribe().get();
+```
+
+### 4. Accessing Offerings based on a one-time request or in a continuous fashion
+
+Before we describe how to access an offering that was discovered and subscribed to on the marketplace, it makes sense that you look at the different access concepts provided. The *IOffering* interface provides the following signatures for access:
 
 ```java
 void accessOneTime(AccessParameters parameters, AccessResponseSuccessHandler onSuccess);  
@@ -177,10 +178,19 @@ response.thenAccept((r) -> log("One time Offering access: " + r.asJsonNode().siz
 
 As you can see, accessing an offering can be that simple. We use the *accessOneTime* method and pass the parameters object that restricts the access to the specified longitude and latitude coordinates. Since we use *accessOneTime* returning a CompletableFuture, we can apply a function on the result. Here we simply output the response content to the console. Note that the response object is of the type JsonNode, which already includes the parsed response message and provides functionality for traversing the response.
 
-### Continuous Access of Offerings
+#### 4.1 One-time Access
 
-Since we want to show the returned parking data in real time , it would be even nicer if we could access the parking data continuously.
-Here we describe how this can be done:
+```java
+CompletableFuture<AccessResponse> response = offering.accessOneTime(accessParameters);
+List parkingResult3 = response.get().map(AlternativeParkingPojo.class, OutputMapping.create()
+	.addNameMapping("geoCoordinates.latitude", "coordinates.latitude")
+	.addNameMapping("geoCoordinates.longitude", "coordinates.longitude")
+	.addNameMapping("distance", "meters"));
+```
+
+#### 4.2 Continuous Access
+
+Since we want to show the returned parking data in real time , it would be even nicer if we could access the parking data continuously. Here we describe how this can be done:
 
 ```java
 Duration feedDuration = Duration.standardHours(1);
@@ -252,13 +262,6 @@ To provide the mapping manually, you use the *addTypeMapping* method, for each s
 
 A third option is to provide your own mapping which means to cherry-pick the required fields from the access response. In the example, we map **latitude** from the complex type **geoCoordinates** to the field **coordinate** of our parking result POJO. Also, we map the field **distance** to the POJO field **meters**.
 
-```java
-CompletableFuture<AccessResponse> response = offering.accessOneTime(accessParameters);
-List parkingResult3 = response.get().map(AlternativeParkingPojo.class, OutputMapping.create()
-	.addNameMapping("geoCoordinates.latitude", "coordinates.latitude")
-	.addNameMapping("geoCoordinates.longitude", "coordinates.longitude")
-	.addNameMapping("distance", "meters"));
-```
 
 
 **That's it!** You have just learned how to use the BIG IoT Library as a data provider as well as a data consumer. 
