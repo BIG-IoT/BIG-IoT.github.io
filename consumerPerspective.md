@@ -38,7 +38,8 @@ If you want to connect to multiple marketplaces, just repeat the previous steps 
 
 ### 2. Discovering Offerings on the Marketplace according to a Query specification
 
-Now, that you are authenticated at the marketplace, you can search for relevant parking sensor data to feed into your service.  
+Now, that you are authenticated at the marketplace, you can search for relevant parking sensor data to feed into your service.
+
 #### 2.1 Based on an Offering Query created via the Marketplace Web portal
 
 In case you have already created an Offering Query via the Marketplace Web poral, you can simply call the `discoverById()` method by using the Query ID, as shown here:
@@ -73,31 +74,29 @@ OfferingQuery query = OfferingQuery.create("DemoParkingQuery")
 
 When creating the Offering Query, you need to provide an ID (here "DemoParkingQuery") and a name (here "Demo Parking Query") for it. Also it is important to define a semantic type or category (here "urn:big-iot:ParkingSpaceCategory") in order for the marketplace to return only relevant types for your consumer application. 
 
-***NOTE 1: A full list of already defined and supported semantic categories is available here. Via the Marketplace user interface, you can also create new categories during creation of an offering. Those ‘“proposed”’ types can then also be used in your code.
+**NOTE 1: A full list of already defined and supported semantic categories is available [here](https://big-iot.github.io/categories/). Via the Marketplace user interface, you can also create new categories during creation of an offering. Those ‘“proposed”’ types can then also be used in your code.**
 
-Offerings queries can use temporal (`withTimePeriod()`) and spatial (`withRegin()` or `inCity()`) filters that ensures that only relevant offerings are returned. Also the pricing model and a maximum price, as well as the desired license type can be defined. The Consumer Lib offers you Enum classes that you can consult to see, which other licenses or accounting types are available.
+Offerings queries can also use temporal (`withTimePeriod()`) and spatial (`withRegin()` or `inCity()`) filters that ensure that only relevant offerings are discovered. Also the pricing model and a maximum price, as well as the desired license type can be defined. The Consumer Lib offers you Enum classes that you can consult to see, which other licenses or accounting types are available.
 
-Finally, you can also define input and output parameters that you expect in the offerings. 
-
-
-### Querying the Marketplace
+Finally, you can also define specific input and output data types that you expect in the offerings. 
 
 To execute the query on the marketplace, the Consumer object provides multiple options.  
 The dedicated method for this is *discover*, which has different signatures to take different programming preferences into account.
 
 ```java
 CompletableFuture<List<SubscribableOfferingDescription>> discover(IOfferingQuery query);
+CompletableFuture<List<SubscribableOfferingDescription>> discoverById(String queryId);
 void discover(IOfferingQuery query, DiscoverResponseHandler onSuccess, DiscoverResponseErrorHandler onFailure);
-void discover(IOfferingQuery query, DiscoverResponseHandler onSuccess);
+void discoveryContinuous(IOfferingQuery query, DiscoverResponseHandler onSuccess, DiscoverResponseErrorHandler onFailure);
 ```
 
-The first version uses a *CompletableFuture* as a return type, which is a promise on a list of *OfferingDescriptions*, which is part of the functional programming styles introduced in Java 8. 
-The other two variants are using callback mechanisms. The following code shows how to discover offerings getting them as a CompletableFuture on the list of OfferingDescriptions:
+The first version uses a *CompletableFuture* as a return type, which is a promise on a list of *SubscribableOfferingDescriptions*, which is part of the functional programming styles introduced in Java 8. The other two variants are using callback mechanisms. 
+
+The following code shows how to discover offerings getting them as a CompletableFuture on the list of OfferingDescriptions:
 
 ```java
 CompletableFuture<List<SubscribableOfferingDescription>> listFuture = consumer.discover(query);
-List<SubscribableOfferingDescription> offerings = listFuture.get();
-Offering offering = offerings.get(0).subscribe().get();
+List<SubscribableOfferingDescription> offerings = consumer.discover(query).get();
 ```
 
 The discover call is actually non-blocking. So, you could do something in between, e.g. handing over the CompletableFuture object to your management thread. Or alternatively, you can directly receive the list by calling the get method. This call is blocking and will wait on the list of OfferingDescriptions. The motivation of using CompletableFuture here is, that you can come easily from an asynchronous behavior to a blocking behavior and further you can utilize reactive concepts if you want. For example by calling thenApply as a monad on the CompletableFuture object allows you to apply functions once the list of offering descriptions is received. 
@@ -105,6 +104,20 @@ The discover call is actually non-blocking. So, you could do something in betwee
 ```java
 listFuture.thenApply(SubscribableOfferingDescription::showOfferingDescriptions);
 ```
+
+### 3. Subscribing to Offerings of interest 
+
+Before you can access an offering, you have to subscribe to the offering. Subscription is done through the correspondent *subscribe* method which returns an Offering object. The offering object provides different access methods as described later.
+
+#### 3.1 Based on known Offering ID
+
+```java
+Offering offering = consumer.subscribeById("").get();
+```
+
+#### 3.2 Based on discovered Offerings
+
+*SubscribableOfferingDescription* object. Subscription is done through the correspondent *subscribe* method which returns an Offering object. The offering object provides different access methods as described later.
 
 Before you can utilize an offering, you have to subscribe to the OfferingDescription object. Subscription is done through the correspondent *subscribe* method which returns an Offering object. The offering object provides different access methods as described later.
 You can alternatively also use callbacks for discovering offerings. Here is an example how to achieve that:
