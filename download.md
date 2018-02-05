@@ -7,9 +7,10 @@ sidebar:
 
 You'll find the most recent version number of the Big IoT Lib in the [Release Notes](/releaseNotes).
 
-Using our Maven **[https://nexus.big-iot.org/content/repositories/releases/]**, you can import the BIG IoT Lib into your software project:
+Using our Maven repository (see [here](https://nexus.big-iot.org/content/repositories/releases/)), you can import the BIG IoT Lib into your software project:
 
-*Make sure you replace `x.y.z` with the correct version number (e.g. `0.10.M1`)!*
+**Make sure you replace `x.y.z` with the correct version number (e.g. `0.10.M1`)!**
+
 
 ### Core Lib
 
