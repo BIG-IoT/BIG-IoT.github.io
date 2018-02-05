@@ -45,8 +45,8 @@ Now, that you are authenticated at the marketplace, you can search for relevant 
 In case you have already created an Offering Query via the Marketplace Web poral, you can simply call the `discoverById()` method by using the Query ID, as shown here:
 
 ```java
-  List<SubscribableOfferingDescription> offeringDescriptions = 
-                consumer.discoverById("TestOrganization-TestConsumer-DemoParkingQuery").get();
+List<SubscribableOfferingDescription> offeringDescriptions = 
+        consumer.discoverById("TestOrganization-TestConsumer-DemoParkingQuery").get();
 ```
 
 In return, the Marketplace provides a list of all matching offerings. 
@@ -57,19 +57,19 @@ Alternatively, you can also create your Offering Query from scratch in your appl
 
 ```java
 OfferingQuery query = OfferingQuery.create("DemoParkingQuery")
-                .withName("Demo Parking Query")
-                .withCategory("urn:big-iot:ParkingSpaceCategory")
-                .withTimePeriod(TimePeriod.create(new DateTime(1999, 1, 1, 0, 0, 0), new DateTime()))
-                .inRegion(BoundingBox.create(Location.create(40.0, 8.0), Location.create(45.0, 12.0)))
-		// .inCity("Barcelona")
-                .addInputData(new RDFType("schema:longitude"), ValueType.NUMBER)
-                .addInputData(new RDFType("schema:latitude"), ValueType.NUMBER)
-                .addOutputData(new RDFType("schema:longitude"), ValueType.NUMBER)
-                .addOutputData(new RDFType("schema:latitude"), ValueType.NUMBER)
-                .addOutputData(new RDFType("datex:parkingSpaceStatus"), ValueType.TEXT)
-                .withPricingModel(BigIotTypes.PricingModel.PER_ACCESS)
-		.withMaxPrice(Euros.amount(0.5))
-                .withLicenseType(LicenseType.CREATIVE_COMMONS);
+	.withName("Demo Parking Query")
+	.withCategory("urn:big-iot:ParkingSpaceCategory")
+	.withTimePeriod(TimePeriod.create(new DateTime(1999, 1, 1, 0, 0, 0), new DateTime()))
+	.inRegion(BoundingBox.create(Location.create(40.0, 8.0), Location.create(45.0, 12.0)))
+	// .inCity("Barcelona")
+	.addInputData(new RDFType("schema:longitude"), ValueType.NUMBER)
+	.addInputData(new RDFType("schema:latitude"), ValueType.NUMBER)
+	.addOutputData(new RDFType("schema:longitude"), ValueType.NUMBER)
+	.addOutputData(new RDFType("schema:latitude"), ValueType.NUMBER)
+	.addOutputData(new RDFType("datex:parkingSpaceStatus"), ValueType.TEXT)
+	.withPricingModel(BigIotTypes.PricingModel.PER_ACCESS)
+	.withMaxPrice(Euros.amount(0.5))
+	.withLicenseType(LicenseType.CREATIVE_COMMONS);
 ```
 
 When creating the Offering Query, you need to provide an ID (here "DemoParkingQuery") and a name (here "Demo Parking Query") for it. Also it is important to define a semantic type or category (here "urn:big-iot:ParkingSpaceCategory") in order for the marketplace to return only relevant types for your consumer application. 
@@ -132,12 +132,12 @@ The *SelectionCriteria* class allows you to define the selection criteria based 
 
 ```java
 SubscribableOfferingDescription offeringDescription = 
-		    consumer.discover(query)
-			    .thenApply( (list) -> OfferingSelector.create()
-					                 	  .cheapest()
-					     			  .mostPermissive()
-					    			  .select(list))
-	        	    .get();
+	    consumer.discover(query)
+		    .thenApply( (list) -> OfferingSelector.create()
+							  .cheapest()
+							  .mostPermissive()
+							  .select(list))
+		    .get();
 ```
 
 Once a *SubscribableOfferingDescription* has been selected, the subscription is done as follows:
@@ -151,34 +151,38 @@ Offering offering = offeringDescription.subscribe().get();
 Before we describe how to access an offering that was discovered and subscribed to on the marketplace, it makes sense that you look at the different access concepts provided. The *IOffering* interface provides the following signatures for access:
 
 ```java
-void accessOneTime(AccessParameters parameters, AccessResponseSuccessHandler onSuccess);  
-void accessOneTime(AccessParameters parameters, AccessResponseSuccessHandler onSuccess, AccessResponseFailureHandler onFailure);   
 CompletableFuture<AccessResponse> accessOneTime(AccessParameters parameters);
-IAccessFeed accessContinuously(AccessParameters parameters, Duration lifetime, FeedNotificationSuccessHandler onSuccess, FeedNotificationFailureHandler onFailure);
+void accessOneTime(AccessParameters parameters, AccessResponseSuccessHandler onSuccess, 
+		   AccessResponseFailureHandler onFailure);   
+IAccessFeed accessContinuously(AccessParameters parameters, Duration lifetime, FeedNotificationSuccessHandler onSuccess, 		    FeedNotificationFailureHandler onFailure);
 ```
 
 To access offerings, we distinguish between two types: *one-time access* and *continuous access*. *One-time access* means that you execute an access request every time you want to get new data. *Continuous access* refers to the reception of data as a feed.
-For one-time access, the Consumer Lib supports again different programming styles. You can either use callback functions for pure asynchronous access or you can use a CompletableFuture to do reactive programming or even having a blocking call. 
 
-In either case, you have to provide an *AccessParameters* object for the access call. In includes the parameters, which will be passed on to the provider. Typically they are needed to filter the output or configure the access. 
+In either case, you have to provide an *AccessParameters* object in the access call. In includes the parameters, which will be passed on to the provider as "input data". Typically they are needed to filter the "output data" (i.e. the response) or simply to configure the access request. 
+
+Here is an example, how to create the *AccessParamters* object:
+
+```java
+AccessParameters accessParameters = AccessParameters.create()
+			.addRdfTypeValue(new RDFType("schema:longitude"), 12.3)
+			.addRdfTypeValue(new RDFType("schema:latitude"), 42.73);
+```
+
+The semantic types (e.g. "schema:longitude") you can use here are those defined under the "input data" in the offering description. The value will be assign to the corresponding property name in the access reqeust. 
+
+#### 4.1 One-time Access
+
+For *one-time access*, the Consumer Lib supports again different programming styles. You can either use a CompletableFuture to do reactive programming or a callback function. 
 
 Here is an example, how to access the parking offering we retrieved earlier:
 
 ```java
-/* Create a hashmap to hold parameters for filtering access*/
-AccessParameters accessParameters = AccessParameters.create()
-.addRdfTypeValue(new RDFType("schema:longitude"), 12.3)
-.addRdfTypeValue(new RDFType("schema:latitude"), 42.73);
-
-/* Execute one time access and print the result */
-CompletableFuture<AccessResponse> response = offering.accessOneTime(accessParameters);
-response.thenAccept((r) -> log("One time Offering access: " + r.asJsonNode().size() + " elements received. "));
-
+CompletableFuture<AccessResponse> response = offering.accessOneTime(accessParameters)
+	.thenAccept((r) -> log("One time Offering access: " + r.asJsonNode().size() + " elements received. "));
 ```
 
-As you can see, accessing an offering can be that simple. We use the *accessOneTime* method and pass the parameters object that restricts the access to the specified longitude and latitude coordinates. Since we use *accessOneTime* returning a CompletableFuture, we can apply a function on the result. Here we simply output the response content to the console. Note that the response object is of the type JsonNode, which already includes the parsed response message and provides functionality for traversing the response.
-
-#### 4.1 One-time Access
+As you can see, accessing an offering can be that simple. We use the `accessOneTime()` method and pass the *AccessParameters*  object. Since we use `accessOneTime()` returning a CompletableFuture, we can apply a function on the result. Here we simply print out the response content to the console. Note that the response object is of the type JsonNode, which already includes the parsed response message and provides functionality for traversing the response.
 
 ```java
 CompletableFuture<AccessResponse> response = offering.accessOneTime(accessParameters);
@@ -190,80 +194,87 @@ List parkingResult3 = response.get().map(AlternativeParkingPojo.class, OutputMap
 
 #### 4.2 Continuous Access
 
-Since we want to show the returned parking data in real time , it would be even nicer if we could access the parking data continuously. Here we describe how this can be done:
+However, since we want to show the returned parking data in real time, it would be even nicer if we could access the parking data continuously. Here we describe how this can be done:
 
 ```java
 Duration feedDuration = Duration.standardHours(1);
 Duration feedInterval = Duration.standardSeconds(2);
 
-AccessFeed accessFeed = offering
-  .accessContinuous(
-     	accessParameters, 
+AccessFeed accessFeed = offering.accessContinuous(accessParameters, 
 	feedDuration.getMillis(), 
 	feedInterval.getMillis(), 
 	(f,r)->log("Incoming feed data: "+ r.asJsonNode().size() + " elements received. "),
-	(f,r)->log("Feed operation failed")
-	);
+	(f,r)->log("Feed operation failed"));
 ```
 
-You notice that the procedure is very similar to the access on a per-request base. We use the *accessContinuous* method of the OfferingQuery object which requires the *accessParameters* object, a duration and feed interval, a success callback and a failure callback in case something went wrong. *accessContinuous* creates a feed, which requires a lifecycle management. The *accessFeed* object has functionality for stopping (stop), resuming (resume) and getting the status of a feed subscription (status), which we don’t want to use now. 
+You notice that the procedure is very similar to the `accessOneTime()`. The `accessContinuous()` method of the *Offering* object also requires the *accessParameters* object, a *duration* and *interval* of the access feed, as well as a success and failure handler. This method creates an *AccessFeed* object, which has its own lifecycle management. The *AccessFeed* has functionality for stopping (`stop()`), resuming (`resume()`) and getting the status of a feed subscription (`status()`).
 
-If you want to stop accessing an offering, you can unsubscribe accordingly.
+**Congratulations! You have now successfully discovered and subscribed to your first offering via the marketplace, and accessed the resources on the provider!**
+
+
+### 5. Offering unsubscribe and Consumer termination
+
+If you want to unsubscribe from an offering, just call the `unsubscribe()` method on the *Offering* object.
+This will also terminate all the access feeds related to the respective offering. 
 
 ```java
 offering.unsubscribe();
+```
+
+To finally terminate your consumer instance, you call the `terminate()` method on the *Consumer* object.
+
+```java
 consumer.terminate();
 ```
 
-Make sure to always call the terminate method of the consumer object before stopping your application in order to terminate any open network connections. 
 
-### Automated mapping to POJO
+### 6. Automated mapping to POJO
 
-The following example will show you, how you can access offerings and let the BIG IoT Lib automatically match the output parameters to a Parking POJO.
+The following example will show you, how you can access offerings and let the BIG IoT Lib automatically match the output parameters to your POJO.
 
 ```java
-CompletableFuture<AccessResponse> response = offering.accessOneTime(accessParameters);
+AccessResponse response = offering.accessOneTime(accessParameters).get();
+
 //Mapping the response automatically to your POJO
-List<ParkingResultAnnotated> parkingResult = response.get().map(MyParkingResultPojoAnnotated.class);
+List<ParkingResultAnnotated> parkingResult = response.map(MyParkingResultPojoAnnotated.class);
 ```
 
-For the access request, you use the map method, which accepts an annotated POJO class. The lib will now map the response data from the parking provider to the POJO MyParkingResultAnnotated. 
+As you can see here, the `map()` method of the *AccessResponse* object accepts an annotated POJO class. Based on this, the Lib  will map the response ("output data" from the parking provider) to the POJO *MyParkingResultAnnotated*: 
 
 ```java
 public class MyParkingResultAnnotated {
-	public static class Coordinate {
-		public double latitude;
-		public double longitude;
-	}
-	@ResponseMappingType("schema:geoCoordinates")
-	public MyParkingResultPojoAnnotated.Coordinate coordinate;
-	@ResponseMappingType("datex:distanceFromParkingSpace")
-	public double distance;
-	@ResponseMappingType("datex:parkingSpaceStatus")
-	public String status;	
+    
+    @ResponseMappingType("schema:longitude")
+    public double longitude;
+
+    @ResponseMappingType("schema:latitude")
+    public double latitude;
+
+    @ResponseMappingType("datex:distanceFromParkingSpace")
+    public double distance;
+
+    @ResponseMappingType("datex:parkingSpaceStatus")
+    public String status;	
 }
 ```
 
-In order to map semantic types to your POJO’s types, you can use the *ResponseMappingType* class, which is parameterized with the semantic type you want to map. In this case, we would map the complex type **geoCoordinates** from the Complex Parking Offering to the Coordinate class.  
-
-Another option, instead of using an automated mapping approach is to do the mapping manually. You can see how this works in the next example (note that we use the non-annotated version of the ParkingResult).
+Alternatively, instead of using an automated mapping approach, you can also program the mapping in your code. To do so, you create an *OutputMapping* object and pass this to the `map()` function of the *AccessResponse* object. The output mapping is created with a builder approach, where you define a mapping between your class variables (e.g. "longitutde") and the semantic types (e.g. "schema:longitude"). You can see how this works in the next example (note that we use the non-annotated version of the ParkingResult):
 
 ```java
-CompletableFuture<AccessResponse> response = offering.accessOneTime(accessParameters);
-List parkingResult = response.get()
+AccessResponse response = offering.accessOneTime(accessParameters).get();
+
+List<ParkingResult> parkingResult = response
   .map(MyParkingResultPojo.class, OutputMapping
-  .create()
-  .addTypeMapping("schema:geoCoordinates", "coordinate")
-  .addTypeMapping("datex:distanceFromParkingSpace", "distance")
-  .addTypeMapping("datex:parkingSpaceStatus", "status"));
+  	.create()
+	.addTypeMapping("schema:longitude", "longitude")
+  	.addTypeMapping("schema:latitude", "latitude")
+  	.addTypeMapping("datex:distanceFromParkingSpace", "distance")
+  	.addTypeMapping("datex:parkingSpaceStatus", "status"));
 ```
 
-To provide the mapping manually, you use the *addTypeMapping* method, for each semantic type from the provider’s output data elements so that the lib can match it to your POJO.  
-
-A third option is to provide your own mapping which means to cherry-pick the required fields from the access response. In the example, we map **latitude** from the complex type **geoCoordinates** to the field **coordinate** of our parking result POJO. Also, we map the field **distance** to the POJO field **meters**.
+As you can see here, the `addTypeMapping()` method is used to add the mapping for each semantic type from the provider’s output data elements to your class variables.
 
 
-
-**That's it!** You have just learned how to use the BIG IoT Library as a data provider as well as a data consumer. 
+**That's it!  You have just learned how to use the BIG IoT Library as a data provider as well as a data consumer.**
 
 
