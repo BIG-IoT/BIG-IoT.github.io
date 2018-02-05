@@ -9,7 +9,7 @@ You'll find the most recent version number of the Big IoT Lib in the [Release No
 
 Using our Maven **[https://nexus.big-iot.org/content/repositories/releases/]**, you can import the BIG IoT Lib into your software project:
 
-*Make sure you replace x.y.z with the correct version number*
+*Make sure you replace `x.y.z` with the correct version number (e.g. `0.10.M1`)!*
 
 ### Core Lib
 
@@ -31,7 +31,7 @@ compile 'org.eclipse.bigiot.lib:bigiot-lib-core:x.y.z'
 
 ### Advanced Lib
 
-This lib extends the core lib and introduces lambda as well as asynchronous computation support via functional interfaces and *CompletableFuture*.  It requires Java 8 or newer.
+This lib extends the core lib and introduces lambda as well as asynchronous computation support via functional interfaces and *CompletableFuture*. It requires Java 8 or newer.
 
 Import as Maven dependency: 
 ```xml
@@ -49,7 +49,7 @@ compile 'org.eclipse.bigiot.lib:bigiot-lib-advanced:x.y.z'
 
 ### Embedded Spark
 
-This extends the advanced lib with an implementation for deploying your offering on the programmatic web server [Spark](http://sparkjava.com/). You can use this lib, if your your BIG IoT Ofering should be provider side integrated on a gateway service.
+This extends the advanced lib with an implementation for deploying your offerings via an embedded Web server, called [Spark](http://sparkjava.com/). You can use this lib, if your offering should be served directly from your provider application, using an embedded Web server.
 
 Import as Maven dependency: 
 ```xml
