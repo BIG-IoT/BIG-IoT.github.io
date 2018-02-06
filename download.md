@@ -7,7 +7,7 @@ sidebar:
 
 Using our Maven repository (see [here](https://nexus.big-iot.org/content/repositories/releases/)), you can import the BIG IoT Lib into your software project.
 
-For a really **simple start**, you can also clone our **[example project]**(https://github.com/BIG-IoT/example-projects) and start from there to buid your first BIG IoT Provider or Consumer:
+For a really **simple start**, you can also clone our [**example project**](https://github.com/BIG-IoT/example-projects) and start from there to buid your first BIG IoT Provider or Consumer:
   * [Java Example Provider](https://github.com/BIG-IoT/example-projects/tree/master/java-example-provider)
   * [Java Example Consumer](https://github.com/BIG-IoT/example-projects/tree/master/java-example-consumer)
   
