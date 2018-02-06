@@ -5,12 +5,20 @@ sidebar:
   nav: "docs"
 ---
 
-You'll find the most recent version number of the Big IoT Lib in the [Release Notes](/releaseNotes).
+Using our Maven repository (see [here](https://nexus.big-iot.org/content/repositories/releases/)), you can import the BIG IoT Lib into your software project.
 
-Using our Maven repository (see [here](https://nexus.big-iot.org/content/repositories/releases/)), you can import the BIG IoT Lib into your software project:
+For a really **simple start**, you can also clone our **[example project]**(https://github.com/BIG-IoT/example-projects) and start from there to buid your first BIG IoT Provider or Consumer:
+  * [Java Example Provider](https://github.com/BIG-IoT/example-projects/tree/master/java-example-provider)
+  * [Java Example Consumer](https://github.com/BIG-IoT/example-projects/tree/master/java-example-consumer)
+  
+These projects include everything you need to run them from the command line (`gradle run`) or include them into your IDEs (import as gradle projects).
+
+
+## Using Maven or Gradle 
 
 **Make sure you replace `x.y.z` with the correct version number (e.g. `0.10.M1`)!**
 
+You'll find the most recent version number of the Big IoT Lib in the [Release Notes](/releaseNotes).
 
 ### Core Lib
 
