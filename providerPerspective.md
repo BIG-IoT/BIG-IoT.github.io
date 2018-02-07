@@ -16,7 +16,9 @@ Using the BIG IoT Provider Lib, you can manage your data on the BIG IoT Marketpl
 3. Creation of Endpoints for the Offering Description
 4. Registration of the Offering Description with its Endpoint
 
-**The complete java program of this example is available [here](https://github.com/BIG-IoT/example-projects/blob/master/more-java-examples/src/main/java/org/eclipse/bigiot/lib/examples/ExampleProvider.java).**
+**The complete java program of this example is available [here](https://github.com/BIG-IoT/example-projects/blob/master/more-java-examples/src/main/java/org/eclipse/bigiot/lib/examples/ExampleProvider.java).** 
+
+Note: You can also clone/download a complete Java project for an example provider that you can build and run directly (using gradle) [here](https://github.com/BIG-IoT/example-projects/tree/master/java-example-provider).  
 
 
 ### 1. Creation of a BIG IoT Provider and Authentication on the Marketplace
