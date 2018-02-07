@@ -17,6 +17,8 @@ The Consumer Lib offers the following main functionalities:
 
 The complete java program of this example is available [here](https://github.com/BIG-IoT/example-projects/blob/master/more-java-examples/src/main/java/org/eclipse/bigiot/lib/examples/ExampleConsumer.java).
 
+Note: You can also clone/download a complete Java project for an example provider that you can build and run directly (using gradle) [here](https://github.com/BIG-IoT/example-projects/tree/master/java-example-consumer).
+
 
 ### 1. Creation of a BIG IoT Consumer and Authentication on the Marketplace
 
