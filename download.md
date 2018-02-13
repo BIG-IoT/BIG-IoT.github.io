@@ -10,6 +10,7 @@ Using our Maven repository (see [here](https://nexus.big-iot.org/content/reposit
 For a really **simple start**, you can also clone our [**example project**](https://github.com/BIG-IoT/example-projects) and start from there to buid your first BIG IoT Provider or Consumer:
   * [Java Example Provider](https://github.com/BIG-IoT/example-projects/tree/master/java-example-provider)
   * [Java Example Consumer](https://github.com/BIG-IoT/example-projects/tree/master/java-example-consumer)
+  * [Android Example Consumer](https://github.com/BIG-IoT/example-projects/tree/master/AndroidExampleConsumer)
   
 These projects include everything you need to run them from the command line (`gradle run`) or include them into your IDEs (import as gradle projects).
 
@@ -76,19 +77,19 @@ compile 'org.eclipse.bigiot.lib:bigiot-lib-embeddedspark:x.y.z'
 
 ### Android
 
-This lib extends the *Core Lib* and adds Android-specific features. This is your choise of lib, if you want to develop an Android app as a consumer of BIG IoT platforms, or even if you develop a provider based on the Android system.
+This lib extends the *Core Lib* and adds Android-specific features. This is your choise of lib, if you want to develop an Android app as a consumer of BIG IoT platforms, or even if you develop a proxy provider based on the Android system.
 
 Import as Maven dependency: 
 ```xml
 <dependency>
-  <groupId>org.bigiot.lib.android</groupId>
-  <artifactId>bigiotlib</artifactId>
+  <groupId>org.eclipse.bigiot.lib</groupId>
+  <artifactId>bigiot-lib-android</artifactId>
   <version>x.y.z</version>
 </dependency>
 ```
 
 Import as Gradle dependency:  
 ```xml
-compile 'org.bigiot.lib.android:bigiotlib:x.y.z'
+compile 'org.eclipse.bigiot.lib:bigiot-lib-android:x.y.z'
 ```
 
