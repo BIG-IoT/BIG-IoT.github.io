@@ -1,9 +1,3 @@
----
-layout: single
-title: BIG IoT Data Offerings for BCX
-sidebar: 
-  nav: "docs"
---- 
 
 Offerings that are available via the BIG IoT Marketplace:
 
