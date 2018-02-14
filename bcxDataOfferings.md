@@ -7,8 +7,8 @@ sidebar:
 
 Offerings that are available via the BIG IoT Marketplace:
 
-| Domain | Name | Description and Inline-URL to the Marketplace| 
-| --------- | --------- | --------- | --------- | 
+| Domain | Name | Description | 
+| --------- | --------- | --------- | 
 | Parking | [ParkingDetector](https://market.big-iot.org/offering/VMZBerlin-vmzProvider-availableparkinginfo) | Location and Occupancy Status of Parking Spots in Berlin | 
 | Charging | [ChargingInfo](https://market.big-iot.org/offering/VMZBerlin-vmzProvider-availableevcharginginfo) | Location and Occupancy Status of Charging Stations in Berlin | 
 | Incident Information | [Street Traffic Incident Messages](https://market.big-iot.org/offering/VMZBerlin-vmzProvider-streetincidentinfo) |  | 
