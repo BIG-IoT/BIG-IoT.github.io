@@ -1,6 +1,6 @@
 ---
 layout: single
-title: BIG IoT Offering Categories
+title: BIG IoT Offering Categories (15.02.2018)
 sidebar: 
   nav: "docs"
 --- 
@@ -10,8 +10,22 @@ sidebar:
 </p>
 
 <script type="text/javascript">
-  // TODO fetch from SPARQL endpoint?
-  // query: select ?parent ?child where { graph <http://big-iot.eu/ontologies#> { ?parent <http://www.w3.org/2004/02/skos/core#narrower> ?child . } }
+// TODO fetch from SPARQL endpoint?
+// query: https://virtuoso-dev.....org/sparql
+  // PREFIX bigiot-core: <http://schema.big-iot.org/core/>
+  // PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+  // PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+  // SELECT ?parent ?child
+  // FROM <http://big-iot.eu/ontologies_dev#>
+  // WHERE {
+  // ?parent a bigiot-core:OfferingCategory;
+        skos:narrower ?child.
+  // FILTER NOT EXISTS{?parent a bigiot-core:ProposedOfferingCategory.}
+  // FILTER NOT EXISTS{?child a bigiot-core:ProposedOfferingCategory.}
+  // }
+// Old Query:  
+  // select ?parent ?child where { graph <http://big-iot.eu/ontologies#> { ?parent <http://www.w3.org/2004/02/skos/core#narrower> ?child . } }
+  
 var sparql = {
 "head": {
 "link": [],
