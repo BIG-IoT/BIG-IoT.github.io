@@ -44,7 +44,7 @@ Now, that you are authenticated at the marketplace, you can search for relevant 
 
 #### 2.1 Based on an Offering Query created via the Marketplace Web portal
 
-In case you have already created an Offering Query via the Marketplace Web poral, you can simply call the `discoverById()` method by using the Query ID, as shown here:
+In case you have already created an Offering Query via the Marketplace Web portal, you can simply call the `discoverById()` method by using the Query ID, as shown here:
 
 ```java
 List<SubscribableOfferingDescription> offeringDescriptions = 
