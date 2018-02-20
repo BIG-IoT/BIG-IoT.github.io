@@ -10,10 +10,10 @@
 
 | Location | [Name / URL] (URL ) | Description | 
 | --------- | --------- | --------- | 
+| Germany / Europe | [Weather Data Offering] (https://market.big-iot.org/offering/Bosch_CR-AirQualityDataService-WeatherData_Offering ) | Weather Information (Temperature, Humidity, Air Pressures) across Germany/Europe | 
 | Europe | [Weather Data] (https://market.big-iot.org/offering/Nissatech_Innovation_Centre-Weather_Provider-weather_data_offering ) | Actual Weather Data | 
 | Europe | [Weather Prediction] (https://market.big-iot.org/offering/Nissatech_Innovation_Centre-Forecast_Provider-forecast_data_offering ) | Weather Prediction | 
-| Germany / Europe | [Weather Data Offering] (https://market.big-iot.org/offering/Bosch_CR-AirQualityDataService-WeatherData_Offering ) | Weather Information (Temperature, Humidity, Air Pressures) across Germany/Europe | 
-| Wolfsburg | [Wifiprobe offering] (https://market.big-iot.org/offering/Bosch_SI-ProbeProvider-wifiprobes ) | Wifi probe data from Wolfsburg, usable for people density information | 
+
 
 
 ## Parking Data
@@ -73,6 +73,7 @@
 
 | Location | [Name / URL] (URL ) | Description | 
 | --------- | --------- | --------- | 
+| Wolfsburg | [Wifiprobe offering] (https://market.big-iot.org/offering/Bosch_SI-ProbeProvider-wifiprobes ) | Wifi probe data from Wolfsburg, usable for people density information | 
 | Wolfsburg | [Wifi probes (emulated)] (https://market.big-iot.org/offering/Aalborg_University-wifi_probe_emulator-wifiprobes_emulated ) | Wifi probes collected from passengers inside (and outside) buses in Wolfsburg (emulated, meaning previously collected probes are replayed); List of sensor ids: https://bigiot.lab.es.aau.dk:19064/bigiot/access/wifiprobeemulator ; Example data extract for sensor: https://bigiot.lab.es.aau.dk:19064/bigiot/access/wifiprobeemulator?sensorID=00000000d1eac8e3_emulated&timeStart=2018-02-15T08:15:01Z&timeStop=2018-02-15T08:20:09Z | 
 
 
