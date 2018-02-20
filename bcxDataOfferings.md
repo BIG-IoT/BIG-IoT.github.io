@@ -57,8 +57,8 @@
 | Berlin | [Traffic Detector] (https://market.big-iot.org/offering/VMZBerlin-vmzProvider-trafficflowinfo ) | Current Level of Service (free traffic, delayed traffic, jam) of 300 Traffic Detectors | 
 | Barcelona | [enviroCar Measurements] (https://market.big-iot.org/offering/52_North-envirocar_provider-ec_measurements_offering ) | Single measurements collected during driven tracks consisting of GPS positions enriched with additional sensor information by utilizing the vehicles' inertial diagnostic capabilities. | 
 | Barcelona | [enviroCar Tracks] (https://market.big-iot.org/offering/52_North-envirocar_provider-ec_tracks_offering ) | Car driven tracks dataset consisting of generalized information of tracks. | 
-| Europe | [] (https://market.big-iot.org/offering/Nissatech_Innovation_Centre-Traffic_Incidents_Provider-traffic_incidents_offering ) |  | 
-| Europe | [] (https://market.big-iot.org/offering/Nissatech_Innovation_Centre-Traffic_Flow_Provider-traffic_flow_offering ) |  | 
+| Europe | [Incidents] (https://market.big-iot.org/offering/Nissatech_Innovation_Centre-IncidentsProvider-traffic_incidents_offering) |  Incident Messages | 
+| Europe | [Traffic Flow] (https://market.big-iot.org/offering/Nissatech_Innovation_Centre-Traffic_Flow_Provider-traffic_flow_offering) | Traffic Flow | 
 
 
 ## Public Transport Information
