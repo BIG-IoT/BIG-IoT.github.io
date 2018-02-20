@@ -5,7 +5,7 @@
 Air Quality Data
 | Location | Name | Description | 
 | --------- | --------- | --------- | 
-| Germany and Europe | AirQuality Data Offering | Particulate Matter: PM2.5; PM10 ("Feinstaub") Across Germany/Europe | 
+| Germany and Europe | AirQuality Data Offering | Particulate Matter: PM2.5; PM10 ("Feinstaub") Across Germany and Europe | 
 
 Bike Sharing Data
 | Location | Name | Description | 
