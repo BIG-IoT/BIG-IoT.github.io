@@ -2,14 +2,14 @@
 # Offerings that are available via the BIG IoT Marketplace:
 
 
-##Air Quality Data
+## Air Quality Data
 
 | Location | Name | Description | 
 | --------- | --------- | --------- | 
 | Germany and Europe | AirQuality Data Offering | Particulate Matter: PM2.5; PM10 ("Feinstaub") Across Germany and Europe | 
 
 
-##Weather Data
+## Weather Data
 
 | Location | Name | Description | 
 | --------- | --------- | --------- | 
@@ -19,7 +19,7 @@
 | Wolfsburg | Wifiprobe offering | Wifi probe data from Wolfsburg, usable for people density information | 
 
 
-##Parking Data
+## Parking Data
 
 | Location | Name | Description | 
 | --------- | --------- | --------- | 
@@ -33,7 +33,7 @@
 | Wolfsburg | Available Parking Information | Location and status of parking spots in Wolfsburg | 
 
 
-##Charging Station Data
+## Charging Station Data
 
 | Location | Name | Description | 
 | --------- | --------- | --------- | 
@@ -41,7 +41,7 @@
 | Berlin | ChargingInfo | Location and Occupancy Status of Charging Stations in Berlin | 
 
 
-##Bike Sharing Data
+## Bike Sharing Data
 
 | Location | Name | Description | 
 | --------- | --------- | --------- | 
@@ -49,7 +49,7 @@
 | Berlin / Germany | Bikesharing_offering | Location and occupancy status of bike sharing stations and bikes in Berlin / Germany | 
 
 
-##Street Traffic Information 
+## Street Traffic Information 
 
 | Location | Name | Description | 
 | --------- | --------- | --------- | 
@@ -62,14 +62,14 @@
 | Barcelona | enviroCar Tracks | Car driven tracks dataset consisting of generalized information of tracks. | 
 
 
-##Misc
+## Misc
 
 | Location | Name | Description | 
 | --------- | --------- | --------- | 
 | Wolfsburg | Wifi probes (emulated) | Wifi probes collected from passengers inside (and outside) buses in Wolfsburg (emulated, meaning previously collected probes are replayed); List of sensor ids: https://bigiot.lab.es.aau.dk:19064/bigiot/access/wifiprobeemulator ; Example data extract for sensor: https://bigiot.lab.es.aau.dk:19064/bigiot/access/wifiprobeemulator?sensorID=00000000d1eac8e3_emulated&timeStart=2018-02-15T08:15:01Z&timeStop=2018-02-15T08:20:09Z | 
 
 
-##People Densitiy Estimation
+## People Densitiy Estimation
 
 | Location | Name | Description | 
 | --------- | --------- | --------- | 
@@ -77,7 +77,7 @@
 | Wolfsburg | Bus occupancy | Number of people on bus based on collected wifi probes. (example of webapps presenting the data: http://bigiot.lab.es.aau.dk:19000/) | 
 
 
-##Public Transport Data
+## Public Transport Data
 
 | Location | Name | Description | 
 | --------- | --------- | --------- | 
