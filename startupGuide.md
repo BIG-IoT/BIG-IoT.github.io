@@ -1,11 +1,9 @@
 ---
 layout: single
-title: Startup Guide
+title: Startup Guide and Example Code
 sidebar: 
   nav: "docs"
 ---
-
-# Startup Guide and Example Code
 
 ## Step-by-step instructions - to get started  
 
