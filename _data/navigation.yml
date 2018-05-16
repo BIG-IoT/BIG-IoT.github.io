@@ -14,12 +14,13 @@ docs:
       - title: "Getting started"
         url: /tutorial
         children:
+      - title: "Startup Guide"
+        url: /startupGuide
       - title: "Provider Tutorial"
         url: /providerPerspective
       - title: "Consumer Tutorial"
         url: /consumerPerspective
-      - title: "Startup Guide"
-        url: /startupGuide
+
 main:
   - title: "Get Started"
     url: /tutorial
