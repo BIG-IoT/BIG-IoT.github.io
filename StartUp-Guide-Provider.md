@@ -105,6 +105,7 @@ https://localhost:9123/bigiot/access/<YOUR OFFERING ID>
 - A **_detailed_ Java developer tutorial** for a Provider can be found [here](https://big-iot.github.io/providerPerspective/)
 
 - **Simple Provider example - register a new Offering on the Marketplace** (full example code is available [here](https://github.com/BIG-IoT/example-projects/blob/master/more-java-examples/src/main/java/org/eclipse/bigiot/lib/examples/ExampleProviderWithMarketplaceOfferingDescription.java)):
+
 ```java
 // Initialize provider with provider id and Marketplace URI
 ProviderSpark provider = ProviderSpark.create("Your Provider ID - get it from Marketplace", 
@@ -123,6 +124,7 @@ Endpoints endpoints = Endpoints.create(offeringDescription)
 // Register the offering - from now on it will be discoverable, subscribable and accessible to consumers
 provider.register(offeringDescription, endpoints);
 ```
+
 - **To get stated**, you can **use** our [**Java Example Provider project**](https://github.com/BCX18ConnectedLife/big-iot/tree/master/java-template-provider) **as template** for your own project. It is part of the [GitHub example project](https://github.com/BCX18ConnectedLife/big-iot) mentioned above and **contains everything** to get started!
 
 Further Java example applications for consumers and providers are available [here](https://github.com/BIG-IoT/example-projects/tree/master/more-java-examples/src/main/java/org/eclipse/bigiot/lib/examples).
