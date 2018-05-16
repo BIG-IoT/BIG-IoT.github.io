@@ -11,7 +11,6 @@ sidebar:
 
 - Select the BIG IoT Marketplace you want to use:
   - Public BIG IoT Marketplace URI: [https://market.big-iot.org/](https://market.big-iot.org/)
-  - BCX Marketplace URI: [https://market.internal-big-iot.org/](https://market.internal-big-iot.org/)
 - Click on `Login`
 - You can use your GitHub or Google account to sign in
 
@@ -78,6 +77,7 @@ NOTE: You can copy an Offering ID when you open the Offering on the Web Portal, 
   - _NOTE: The programming API for Android differs slightly from the Java example provided in this tutorial. See below for details._
 
 - **Simple Android Consumer Example for accessing a known Offering** (full example code is available [here](https://github.com/BCX18ConnectedLife/big-iot/blob/master/AndroidExampleConsumer/app/src/main/java/android/bigiot/org/androidexampleconsumer/MainActivity.java)):
+
 ```java
 // Initialize Consumer with Consumer ID and marketplace URL
 Consumer consumer = new Consumer(CONSUMER_ID, MARKETPLACE_URI);
