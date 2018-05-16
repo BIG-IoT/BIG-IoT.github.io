@@ -1,11 +1,9 @@
 ---
 layout: single
-title: Start-Up Guide Consumer
+title: Start-Up Guide for BIG IoT Consumer Developers
 sidebar: 
   nav: "docs"
 ---
-
-# Start-Up Guide for BIG IoT Consumer Developers
 
 ## Step-by-step Instructions
 
