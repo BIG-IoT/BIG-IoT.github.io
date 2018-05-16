@@ -85,6 +85,7 @@ NOTE: You can copy an Offering ID when you open the Offering on the Web Portal, 
 - A **_detailed_ developer tutorial** for a Consumer can be found [here](https://big-iot.github.io/consumerPerspective/)
 
 - **Simple Consumer example for accessing a known Offering** (full example code is available [here](https://github.com/BIG-IoT/example-projects/blob/master/more-java-examples/src/main/java/org/eclipse/bigiot/lib/examples/ExampleConsumerSubscriptionById.java)):
+
 ```java
 // Initialize Consumer with Consumer ID and marketplace URL
 Consumer consumer = new Consumer("Your Consumer ID - get it from Marketplace", "https://market.big-iot.org")
