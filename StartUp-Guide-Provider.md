@@ -18,8 +18,6 @@ sidebar:
 - Select the BIG IoT Marketplace you want to use:
   - Public BIG IoT Marketplace URI: [https://market.big-iot.org/](https://market.big-iot.org/)
     - Here you find our BIG IoT data Offerings. You can also provide your Offerings here.
-  - Local BCX Marketplace URI: [https://market.internal-big-iot.org/](https://market.internal-big-iot.org/) 
-    - Use this Marketplace in case you have data that you want to offer only in the context of the BCX. This is IP-Whitelisted to systems/environments only for the BCX.
 - Click on `Login`
 - You can use your GitHub or Google account to sign in
 
