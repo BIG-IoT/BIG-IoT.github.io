@@ -5,6 +5,17 @@ sidebar:
   nav: "docs"
 ---
 
+### 0.11.M1
+
+*2018-06-07*
+
+Highlighted Changes:
+* Supported Exchange API changes
+* API update for complex types support (see [Provider](https://gitlab.com/BIG-IoT/lib-java/blob/master/bigiot-lib-examples/src/main/java/org/eclipse/bigiot/lib/examples/ComplexExampleProvider.java) and [Consumer](https://gitlab.com/BIG-IoT/lib-java/blob/master/bigiot-lib-examples/src/main/java/org/eclipse/bigiot/lib/examples/ComplexExampleConsumer.java) example)
+* Support new data model for complex types
+* Added `provider.withAutoProxy(proxyHost, proxyPort)` and `Consumer.withAutoProxy(proxyHost, proxyPort)` for automatic proxy detection depending on environment
+* Fixed bugs
+
 
 ### 0.10.M1
 
