@@ -7,7 +7,7 @@ sidebar:
 
 ### 0.11.M2 (2018-06-18)
 
-Highlighted Changes:
+***Highlighted Changes:***
 * API update for complex types support (see [Provider](https://gitlab.com/BIG-IoT/lib-java/blob/master/bigiot-lib-examples/src/main/java/org/eclipse/bigiot/lib/examples/ComplexExampleProvider.java) and [Consumer](https://gitlab.com/BIG-IoT/lib-java/blob/master/bigiot-lib-examples/src/main/java/org/eclipse/bigiot/lib/examples/ComplexExampleConsumer.java) example)
 * Support OfferingQueries with specific Input and Output data types and value types (e.g. "schema:longitude" as ValueType.TEXT)
   * Note: For complex input and output data types, we currently support queries only on the complex type level itself (top level). The value type should be 'undefined'.
@@ -36,7 +36,7 @@ import org.eclipse.bigiot.lib.offering.parameters.AccessParameters;
 
 This is a new major release of the BIG IoT Consumer and Provider Lib. 
 
-Highlighted Changes:
+***Highlighted Changes:***
 * Supported Complex Types for Input and Output data in Offering descriptions
   * NOTE: The marketplace does not yet support providers to propose/create new types of complex types.
 * Added `provider.withAutoProxy(proxyHost, proxyPort)` and `Consumer.withAutoProxy(proxyHost, proxyPort)` for automatic proxy detection depending on environment
