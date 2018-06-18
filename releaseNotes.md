@@ -20,7 +20,7 @@ Highlighted Changes:
 --> 
    .addInputData("longitude", "schema:longitude", ValueType.NUMBER)
 ```
-* Several imports have changed: 
+* Several imports have changed:
 ```
 import org.eclipse.bigiot.lib.model.ValueType;
 ->
