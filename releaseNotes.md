@@ -15,12 +15,15 @@ sidebar:
 
 ***Required code changes:***
 * The RDFType Class was deprecated and is not supported any longer; this means you have to change the definition of your input and output data as follows:
+
 ```
-   .addInputData("longitude", new RDFType("schema:longitude"), ValueType.NUMBER)
+.addInputData("longitude", new RDFType("schema:longitude"), ValueType.NUMBER)
 --> 
-   .addInputData("longitude", "schema:longitude", ValueType.NUMBER)
+.addInputData("longitude", "schema:longitude", ValueType.NUMBER)
 ```
+
 * Several imports have changed:
+
 ```
 import org.eclipse.bigiot.lib.model.ValueType;
 ->
