@@ -54,7 +54,7 @@ Create a new Offering Query
 - For Eclipse IDE:
   - Go to `File` -> `Import` -> `Gradle Project`
     - NOTE: If you don't see the Gradle Project import option, you first have to install the Eclipse gradle tooling (`buildship`) - see [here](http://www.vogella.com/tutorials/EclipseGradle/article.html) for further information
-  - Select the consumer template project directory: `https://github.com/BCX18ConnectedLife/big-iot/java-template-consumer`
+  - Select the consumer template project directory: `/big-iot/java-template-consumer`
   - Import the project
   
 ### 7. Update Properties Files 
