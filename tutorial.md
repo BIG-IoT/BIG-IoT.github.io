@@ -37,24 +37,41 @@ The BIG IoT examples come as Gradle projects. In Eclipse versions Oxygen and lat
 We recommend that you start from a fresh workspace. This is the case if you just installed Eclipse else just switch to a new workspace. 
 Import `java-example-consumer` and `java-example-provider` as a Gradle project.
 If you are not sure, how this works. Select from the menu "File" -> "Import".
+
  ![Import](../img/import-gradle.png)
-Select ![Gradle\Gradle Project](../img/import-gradle-project.png).
-Hit "Next"
-In the “Project root directory” text field, set the folder where the example sources are located (here we imported the consumer example)). It takes a while until Gradle retrieves all the dependencies. ![Eclipse](../img/eclipse-workspace.png).
+
+Select Gradle\Existing Gradle Project
+
+![Select Gradle\Existing Gradle Project](../img/import-gradle-project.png).
+
+Hit "Next" and again "Next" in the Welcome box.
+
+![Select the root filder](../img/import-gradle-project-wizard.png).
+
+In the "Project root directory" text field, set the folder where the example sources are located (here we imported the consumer example)). It takes a while until Gradle retrieves all the dependencies. 
+
+![Eclipse workspace](../img/eclipse-workspace.png)
 
 ### Get your Marketplace Credentials
 
 Before you start the demo, you have to create a provider and a consumer at the BIG IoT Marketplace. The steps for creating a provider and a consumer are quiet similar. We explain here only the steps for the provider. 
-Open a web browser and go to [https://market.big-iot.org]. 
+Open a web browser and go to (https://market.big-iot.org)[https://market.big-iot.org]. 
 
-!!!login button
+![Login at marketplace](../img/marketplace-login.png)
 
-Find the yellow login button in the lower left corner. Click it and authenticate with your Google or GitHub account. Then, click on the text "New Organization" and create your organization. Now, you should see a screen similar to ![this](../img/marketplace.png).
+Find the yellow login button in the lower left corner. Click it and authenticate with your Google or GitHub account. Then, click on the text "New Organization" and create your organization. Now, you should see a screen similar to this
+
+![Marketplace Portal UI](../img/marketplace-portal-ui.png)
+
 As you can see, my organization has the name "Rain Cloud". Within this organization, we can create a provider for the demo. Therefore, click on "My Providers" and then on "+ Provider".
+
+![Add a provider](../img/marketplace-add-provider.png)
 
 Find a good name for your provider and hit "Save".
 
-In the upper right corner, you find two buttons to load and copy the marketplace credentials to your clipboard.  The provider ID and secret have to be inserted in the example.properties file, located in the project folder.
-Now, you start the example provider: Select the file ExampleProvider.java in the “Project Explorer”, in the menu bar hit “Run”  “Run as”  “Java Application”. The provider is now running, it offers a parking availability service, which is registered in the background and deployed as a web service on your machine.
-Before you can see something interesting in the console, you have to start the consumer too. Therefore, you have to create also a consumer at the marketplace and transfer the credentials to the code. The steps are similar to creating a provider. Just switch back to your web browser and start the same process, now, by clicking on “My Consumers”. The creden-tials have to be inserted in ExampleConsumer.java, which is below the directory then java-example-consumer. 
+![Provider created](../img/marketplace-created-provider.png)
+
+In the upper right corner, you find two buttons to load and copy the marketplace credentials to your clipboard.  The provider ID and secret have to be inserted in the `example.properties` file, located in the project folder.
+Now, you start the example provider: Select the file `ExampleProvider.java` in the **Project Explorer**, in the menu bar hit "Run" -> "Run as" -> "Java Application". The provider is now running, it offers a parking availability service, which is registered in the background and deployed as a web service on your machine.
+Before you can see something interesting in the console, you have to start the consumer too. Therefore, you have to create also a consumer at the marketplace and transfer the credentials to the code. The steps are similar to creating a provider. Just switch back to your web browser and start the same process, now, by clicking on **My Consumers**. The credentials have to be inserted in `ExampleConsumer.java`, which is below the directory then `java-example-consumer`. 
 Now, start the Consumer and see what happens. Enjoy!
