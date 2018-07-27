@@ -11,7 +11,7 @@ docs:
         url: https://big-iot.gitlab.io/lib-java/
   - title: "Developer Guide"
     children:
-      - title: "Getting started"
+      - title: "Tutorial"
         url: /tutorial
         children:
       - title: "Startup Guide"
@@ -22,7 +22,7 @@ docs:
         url: /consumerPerspective
 
 main:
-  - title: "Get Started"
+  - title: "Tutorial"
     url: /tutorial
   - title: "Visit the Marketplace"
     url: https://market.big-iot.org
