@@ -28,7 +28,7 @@ In order to try the examples or to get started for development, you have to setu
 | Gradle  | part of Eclipse since Oxygen |
 
 ### Setup Eclipse
-Our tutorials shows a walkthrough using Eclipse. You’ll find the example code at [https://github.com/BIG-IoT/example-projects]. If you want to try the tutorial by your-self, execute the following steps:
+Our tutorials shows a walkthrough using Eclipse. You’ll find the example code at (https://github.com/BIG-IoT/example-projects)[https://github.com/BIG-IoT/example-projects]. If you want to try the tutorial by your-self, execute the following steps:
 ```
 cd <your Eclipse workspace folder> 
 git clone https://github.com/BIG-IoT/example-projects  
@@ -37,10 +37,10 @@ The BIG IoT examples come as Gradle projects. In Eclipse versions Oxygen and lat
 We recommend that you start from a fresh workspace. This is the case if you just installed Eclipse else just switch to a new workspace. 
 Import `java-example-consumer` and `java-example-provider` as a Gradle project.
 If you are not sure, how this works. Select from the menu "File" -> "Import".
- ![Import](../img/importGradle.png)
-Select ![Gradle\Gradle Project](../img/importGradleProject.png).
+ ![Import](../img/import-gradle.png)
+Select ![Gradle\Gradle Project](../img/import-gradle-project.png).
 Hit "Next"
-In the “Project root directory” text field, set the folder where the example sources are located (here we imported the consumer example)). It takes a while until Gradle retrieves all the dependencies. ![Eclipse](../img/eclipseExampleProject.png).
+In the “Project root directory” text field, set the folder where the example sources are located (here we imported the consumer example)). It takes a while until Gradle retrieves all the dependencies. ![Eclipse](../img/eclipse-workspace.png).
 
 ### Get your Marketplace Credentials
 
