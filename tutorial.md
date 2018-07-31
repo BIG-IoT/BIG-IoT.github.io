@@ -18,7 +18,7 @@ In this developer guide, three parts are described:
 # Before you begin...
 
 ## Installation of the tooling
-In order to try the examples or to get started for development, you have to setup your de-velopment environment. If you want to follow this example, it helps you a lot if you have installed the tools from the table below. Of course you can you use your own tooling, but if you are not sure, just get exactly the version from the "We used" column.
+In order to try the examples or to get started for development, you have to setup your de-velopment environment. If you want to follow this example, it helps you a lot if you have installed the tools from the table below. Of course you can you use your own tooling, but if you are not sure, just get exactly the version from the `We used` column.
 
 | Install | We used                                                                                                                                                                                             | Find it at                                                |
 |---------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
@@ -36,42 +36,38 @@ git clone https://github.com/BIG-IoT/example-projects
 The BIG IoT examples come as Gradle projects. In Eclipse versions Oxygen and later, Gradle is already included out-of-the-box. 
 We recommend that you start from a fresh workspace. This is the case if you just installed Eclipse else just switch to a new workspace. 
 Import `java-example-consumer` and `java-example-provider` as a Gradle project.
-If you are not sure, how this works. Select from the menu "File" -> "Import".
+If you are not sure, how this works. Select from the menu `File` then `Import`.
 
  ![Import](../img/import-gradle.png)
 
-Select Gradle\Existing Gradle Project
-
-![Select Gradle\Existing Gradle Project](../img/import-gradle-project.png).
-
-Hit "Next" and again "Next" in the Welcome box.
+Select `Gradle\Existing Gradle Project` and click on `Next`. 
 
 ![Select the root filder](../img/import-gradle-project-wizard.png).
 
-In the "Project root directory" text field, set the folder where the example sources are located (here we imported the consumer example)). It takes a while until Gradle retrieves all the dependencies. 
+In the `Import Gradle Project Dialogue` enter the folder name of an example in the `Project root directory` text field (here we imported the consumer example)). It takes a while until Gradle retrieves all the dependencies. 
 
 ![Eclipse workspace](../img/eclipse-workspace.png)
 
 ### Get your Marketplace Credentials
 
 Before you start the demo, you have to create a provider and a consumer at the BIG IoT Marketplace. The steps for creating a provider and a consumer are quiet similar. We explain here only the steps for the provider. 
-Open a web browser and go to (https://market.big-iot.org)[https://market.big-iot.org]. 
+Open a web browser and go to [https://market.big-iot.org](https://market.big-iot.org). 
 
 ![Login at marketplace](../img/marketplace-login.png)
 
-Find the yellow login button in the lower left corner. Click it and authenticate with your Google or GitHub account. Then, click on the text "New Organization" and create your organization. Now, you should see a screen similar to this
+Find the yellow login button in the lower left corner. Click it and authenticate with your Google or GitHub account. Then, click on the text `New Organization` and create your organization. Now, you should see a screen similar to this
 
 ![Marketplace Portal UI](../img/marketplace-portal-ui.png)
 
-As you can see, my organization has the name "Rain Cloud". Within this organization, we can create a provider for the demo. Therefore, click on "My Providers" and then on "+ Provider".
+As you can see, my organization has the name `Rain Cloud`. Within this organization, we can create a provider for the demo. Therefore, click on `My Providers` and then on `+ Provider`.
 
 ![Add a provider](../img/marketplace-add-provider.png)
 
-Find a good name for your provider and hit "Save".
+Find a good name for your provider and hit `Save`.
 
 ![Provider created](../img/marketplace-created-provider.png)
 
 In the upper right corner, you find two buttons to load and copy the marketplace credentials to your clipboard.  The provider ID and secret have to be inserted in the `example.properties` file, located in the project folder.
-Now, you start the example provider: Select the file `ExampleProvider.java` in the **Project Explorer**, in the menu bar hit "Run" -> "Run as" -> "Java Application". The provider is now running, it offers a parking availability service, which is registered in the background and deployed as a web service on your machine.
-Before you can see something interesting in the console, you have to start the consumer too. Therefore, you have to create also a consumer at the marketplace and transfer the credentials to the code. The steps are similar to creating a provider. Just switch back to your web browser and start the same process, now, by clicking on **My Consumers**. The credentials have to be inserted in `ExampleConsumer.java`, which is below the directory then `java-example-consumer`. 
+Now, you start the example provider: Select the file `ExampleProvider.java` in the `Project Explorer`, in the menu bar hit `Run` -> `Run as` -> `Java Application`. The provider is now running, it offers a parking availability service, which is registered in the background and deployed as a web service on your machine.
+Before you can see something interesting in the console, you have to start the consumer too. Therefore, you have to create also a consumer at the marketplace and transfer the credentials to the code. The steps are similar to creating a provider. Just switch back to your web browser and start the same process, now, by clicking on `My Consumers`. The credentials have to be inserted in `ExampleConsumer.java`, which is below the directory then `java-example-consumer`. 
 Now, start the Consumer and see what happens. Enjoy!
