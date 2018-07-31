@@ -13,7 +13,7 @@ In this developer guide, three parts are described:
 
 1. In the [provider](../providerExample) example, we show how to bring an existing IoT platforms into the BIG IoT ecosystem. The example platform is a simple IoT platform which offers parking data in Barcelona and makes it public on the BIG IoT Marketplace. 
 1. In the [consumer](../consumerExample), we show how to use the BIG IoT Consumer Library to access this data from the perspective of a developer who wants to retrieve that data in an application or service.
-1. [Here](../moreExamples) you find additional information about advanced usage of the BIG IoT Lib.
+1. [Here](../moreExamples) you find more advanced examples.
 
 # Before you begin...
 
