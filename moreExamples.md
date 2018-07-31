@@ -117,7 +117,7 @@ To overcome this limitation, the BIG IoT Provider Lib supports data streaming fo
 
 We describe here how the data stream features can be used by Providers and Consumers:
 
-1. Instead of defining an `AccessRequestHandler` function during the offering description creation and registration, a Provider can simple write newly arriving data records – whenever they are obtained – to a data stream queue using the following command:
+Instead of defining an `AccessRequestHandler` function during the offering description creation and registration, a Provider can simple write newly arriving data records – whenever they are obtained – to a data stream queue using the following command:
 
 ```java
 offering.queue(jsonObject);
@@ -125,14 +125,14 @@ offering.queue(jsonObject);
 
 NOTE: It is assumed here that the `jsonObject` passed to the queue method contains a new output data record that is compliant with the offering description’s output data specification. 
 
-2. A consumer who wants to access the data in a stream fashion will simply use a continuous `AccessFeed` as follows: 
+A consumer who wants to access the data in a stream fashion will simply use a continuous `AccessFeed` as follows: 
 
 ```java
 AccessFeed accessFeed = offering
-					.accessContinuous(accessParameters,
-						Duration.standardSeconds(60), 
-						(o,r) -> System.out.println("feed result:" + r), 
-						(o,r) -> System.out.println("accessed failed"));
+		.accessContinuous(accessParameters,
+			Duration.standardSeconds(60), 
+			(o,r) -> System.out.println("feed result:" + r), 
+			(o,r) -> System.out.println("accessed failed"));
 ```
 
 For stream based offerings, each periodic access request will return only the data records that have occurred since the last access. This way, consumers obtain each data record only once and do not need to handle duplications manually. 
