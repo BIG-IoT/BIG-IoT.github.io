@@ -11,7 +11,6 @@ Let’s go through the steps of developing the example parking provider. Assumin
 * Renewing offerings
 * Providing access callbacks
 
-
 **The Java code of this example available [here](https://github.com/BIG-IoT/example-projects/blob/master/more-java-examples/src/main/java/org/eclipse/bigiot/lib/examples/ExampleProvider.java).** 
 
 Note: You can also clone/download a complete Java project for an example provider that you can build and run directly (using gradle) [here](https://github.com/BIG-IoT/example-projects/tree/master/java-example-provider).  
@@ -117,7 +116,7 @@ public BigIotHttpResponse
 
 The interface function gets an `OfferingDescription` in the corresponding field, a map for the request parameters plus strings for subscription id and consumer info. In this example, we assume that we read the parking data from somewhere, for example by a web service call to the orginal web service. The results are returned as body of `BigIotHttpResponse`. Please keep in mind that responses have to be JSON arrays.
 `AccessRequestHandler` is a functional interface. If you prefer, you can provide the adapter also as a lambda function.
-Alternatively, providers can also assign an `AccessRequestHandler()` to a list of endpoints and use this during the offering registration. 
+Alternatively, providers can also assign an `AccessRequestHandler` to a list of endpoints and use this during the offering registration. 
 
 ```java
 Endpoints endpoints = Endpoints
