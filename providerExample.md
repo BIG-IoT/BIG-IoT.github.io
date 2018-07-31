@@ -1,6 +1,6 @@
 ---
 layout: single
-title: Provide IoT Offerings
+title: Provider Examples
 sidebar: 
   nav: "docs"
 ---
@@ -11,13 +11,12 @@ Let’s go through the steps of developing the example parking provider. Assumin
 * Renewing offerings
 * Providing access callbacks
 
-**The Java code of this example available [here](https://github.com/BIG-IoT/example-projects/blob/master/more-java-examples/src/main/java/org/eclipse/bigiot/lib/examples/ExampleProvider.java).** 
+**The Java code of this example available [here](https://github.com/BIG-IoT/example-projects/blob/master/java-example-provider/src/main/java/org/bigiot/examples/ExampleProvider.java).** 
 
 Note: You can also clone/download a complete Java project for an example provider that you can build and run directly (using gradle) [here](https://github.com/BIG-IoT/example-projects/tree/master/java-example-provider).  
 
 
-### Creation of a BIG IoT Provider and Authentication on the Marketplace
-
+### Create a BIG IoT provider and authenticate at the marketplace
 Before you register your parking data offering on the marketplace, you need to create your provider lifecycle object and authenticate at the marketplace. 
 
 ```java
@@ -38,8 +37,7 @@ ProviderSpark provider = ProviderSpark
         		.authenticate();
 ```
 
-### Create an Offering
-
+### Create an offering
 Now, you should create an offering. Offerings are incrementally built, starting with a fresh offering.
 
 ```java
@@ -53,15 +51,15 @@ offering.withName("Demo Parking Offering")
 offering.withCategory("urn:big-iot:ParkingSpaceCategory");
 ```
 
-**NOTE 1: A full list of already defined and supported semantic categories is available [here](https://big-iot.github.io/categories/). Via the Marketplace user interface, you can also create new categories during creation of an offering. Those '"proposed"' types can then also be used in your code.**
+*NOTE 1: A full list of already defined and supported semantic categories is available [here](https://big-iot.github.io/categories/). Via the Marketplace user interface, you can also create new categories during creation of an offering. Those '"proposed"' types can then also be used in your code.*
 
-**NOTE 2: Using the right semantic catgory for your offering is very important for consumers to find it. So, try to use existing and well established categories whenever there is a good fit. If not, propose a new category that is meaningful.**
+*NOTE 2: Using the right semantic catgory for your offering is very important for consumers to find it. So, try to use existing and well established categories whenever there is a good fit. If not, propose a new category that is meaningful.*
 
 Our offering expects latitude, longitude and range as search location for the input. It returns parking locations. We have to define the parameters, so that consumer can see, how the offering can be used. In this example, our offering has flat parameters. Each parameter has a RDF URI describing its semantical type and a value type specifying how it is encoded. Below, you learn how complex parameters are used.
 
-**NOTE 3: New semantic types for input and output data can be directly created via the code. Just use the keyword '"proposed"' in front of your new type (e.g. '"proposed:parkingSpaceType"').**
+*NOTE 3: New semantic types for input and output data can be directly created via the code. Just use the keyword '"proposed"' in front of your new type (e.g. '"proposed:parkingSpaceType"').*
 
-**NOTE 4: Using well estabished semantic types your input and output data is very important for consumers to find the relevant offerings and to process the data correctly. Try to use existing and well established types whenever possible. If not, propose a new type that is meaningful.**
+*NOTE 4: Using well estabished semantic types your input and output data is very important for consumers to find the relevant offerings and to process the data correctly. Try to use existing and well established types whenever possible. If not, propose a new type that is meaningful.*
 
 ```java
 offering
@@ -128,7 +126,7 @@ Endpoints endpoints = Endpoints
 
 This allows a provider to reuse the offeringDescription object and register offerings on different endpoints.
 
-### Registration of Offerings
+### Register offerings
 Now, that you created the offering description, you probably want to register it at the Marketplace, so that other developers can find it. Use the register method for that.
 
 ```java

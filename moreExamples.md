@@ -1,13 +1,12 @@
 ---
 layout: single
-title: More Examples
+title: More Avanced Examples
 sidebar: 
   nav: "docs"
 ---
 Besides the explained core functionalities of registering provider and consumer, the BIG IoT Lib also supports more sophisticated features, which will be explained here in more details.
 
-###	Complex types – Provider perspective
-
+###	Complex types from provider perspective
 Our example above foresees only flat parameter sets. However, in reality, you find nested types very often. For example, instead of using parameters longitude and latitude to model a position, one could use also the semantical type `schema:geoMidpoint` with latitude and longitude as subparameters. Taking the parking example from above, an offering could look as follows: 
 
 ```java
@@ -51,8 +50,7 @@ Accessing the offering is the same as in the example above
 offering.accessOneTime(accessParameters);
 ```
 
-###	Automated mapping to POJO
-
+###	Automated mapping to POJOs
 When we receive data, we have different options for processing the data. AccessResponse gives access to a JSON container, with which we can traverse the response. But maybe it would be more convenient if we could map it directly to a POJO. 
 
 
@@ -107,7 +105,6 @@ List parkingResult = response.get()
 ```
 
 ###	Data stream supports for HTTP/HTTPS based access protocols
-
 In the context of IoT, data are often sensed, distributed and processed in form of streams. I.e. new sensor observations are added to a stream as they are measured or obtained, allowing consumers to process all the sensor observations in stream manner (one after the other). 
 Without data stream support on the provider end, consumers have to poll with high frequency in order to ensure that they are not missing any sensor observations. To overcome this shortcoming, special streaming protocols (e.g. WebSockets) or message brokers (e.g. MQTT or AMQP) have been developed. 
 However, for constrained consumers that want to access data via a simple HTTP request, these solutions are not suitable. 
@@ -138,7 +135,6 @@ The Provider Lib takes care of the Consumer session management under the hood. S
 Since a Consumer uses the `AccessFeed` as normal, it is the Provider who decides if this features should be used. For data offerings with streaming type of data, this is a convenient and efficient way for Providers to offer such data, as data transmissions are automatically reduced to a minimum. 
 
 ### Using integration mode 3
-
 Up till now, we have only considered that you run a BIG IoT Gateway Service, where you provide the callback code to access your IoT platforms. But what if you cannot start additional services in your environment? In this example, you learn how to register and access offerings that uses the BIG IoT integration mode 3, which is enables a completely Consumer Lib driven access to your IoT platform. To learn more about integration mode 3, please refer
 to section 4.4.
 Suppose, we want to add air quality information to our application and we want to integrate the public available Web API OpenAQ [https://openaq.org](https://openaq.org). In order to integrate the platform using integration mode 3, first register your offering:

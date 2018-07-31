@@ -17,7 +17,7 @@ In this developer guide, three parts are described:
 
 # Before you begin...
 
-## Installation of the tooling
+## Install the tooling
 In order to try the examples or to get started for development, you have to setup your development environment. If you want to follow this example, it helps you a lot if you have installed the tools from the table below. Of course you can you use your own tooling, but if you are not sure, just get exactly the version from the `We used` column.
 
 | Install | We used                                                                                                                                                                                             | Find it at                                                |

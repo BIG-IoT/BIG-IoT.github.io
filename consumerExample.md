@@ -1,6 +1,6 @@
 ---
 layout: single
-title: Consume IoT Offerings
+title: Consumer Examples
 sidebar: 
   nav: "docs"
 ---
@@ -12,13 +12,12 @@ The Consumer Lib offers the following main functionalities:
 * Subscribing to offerings
 * Accessing offerings in per request or in a continuous fashion
 
-**The Java code of this example available [here](https://github.com/BIG-IoT/example-projects/blob/master/more-java-examples/src/main/java/org/eclipse/bigiot/lib/examples/ExampleConsumer.java).** 
+**The Java code of this example available [here](https://github.com/BIG-IoT/example-projects/blob/master/java-example-consumer/src/main/java/org/bigiot/examples/ExampleConsumer.java).** 
 
-### Creating a Consumer Object
-
+### Create a consumer object
 Creating the lifecycle object for consumer operation is very similar to the provider case, described above. That’s why we don’t want to repeat the explanation.
-To get started with the Consumer Lib, you have to create an instance of the Consumer class. The constructor requires your specific consumer ID and a marketplace URI. 
-To authenticate with the marketplace, you have to use the authenticate method provided by the consumer object. This method requires the marketplace API key and a consumer certificate, which you both received when you registered on the BIG IoT Marketplace portal.
+To get started with the Consumer Lib, you have to create an instance of the `Consumer` class. The constructor requires your specific consumer ID and a marketplace URI. 
+To authenticate with the marketplace, you have to use the authenticate method provided by the ´consumer` object. This method requires the marketplace API key and a consumer certificate, which you both received when you registered on the BIG IoT Marketplace portal.
 
 ```java
 Consumer consumer = Consumer
@@ -35,10 +34,9 @@ Consumer consumer = Consumer
         		.authenticate();
 ```
 
-If you want to connect to a different marketplace, just create another `Consumer` object using another marketplace URL. 
+If you want to connect to a different marketplace, just create another `consumer` object using another marketplace URL. 
 
-###	Querying for Offerings
-
+###	Query for offerings
 Now, that you are authenticated at the marketplace, you can search for relevant parking sensor data to feed into your service. To do that, you query the marketplace using the `OfferingQuery` object. The query gets constructed using a builder pattern which first, creates the empty `OfferingQuery` object that is completed with additional query filters, such as a specific search region, a desired accounting type, a maximum price, etc. The marketplace will return all matching offerings for this query. In this example, we search for everything what is possible and therefore possibly missing other offerings which are not so similar. Of course, you can reorder and omit attributes. Removing search parameters widens the query.
 
 ```java
@@ -60,9 +58,9 @@ OfferingQuery query = OfferingQuery
 	.withLicenseType(LicenseType.CREATIVE_COMMONS);
 ```
 
-**NOTE 1: A full list of already defined and supported semantic categories is available [here](https://big-iot.github.io/categories/). Via the Marketplace user interface, you can also create new categories during creation of an offering. Those ‘“proposed”’ types can then also be used in your code.**
+*NOTE 1: A full list of already defined and supported semantic categories is available [here](https://big-iot.github.io/categories/). Via the Marketplace user interface, you can also create new categories during creation of an offering. Those ‘“proposed”’ types can then also be used in your code.*
 
-To execute the query on the marketplace, the `Consumer` object provides multiple discover methods. They have different signatures taking different programming preferences into account.
+To execute the query on the marketplace, the `consumer` object provides multiple discover methods. They have different signatures taking different programming preferences into account.
 The first variant uses a `CompletableFuture` as a return type, which is a promise on a list of `OfferingDescriptions` introduced in Java 8. The following code shows how to discover offerings getting them as a `CompletableFuture` on the list of `OfferingDescriptions`.
 
 ```java
@@ -92,7 +90,7 @@ The callback function in this example again just prints the returned offering de
 As a side note: Of cause you can reuse your query object for subsequent queries. Only if you want to change something regarding the filtering you have to create a new 
 `OfferingQuery` object.
 
-### Selecting an Offering
+### Select an offering
 When your discovery finds multiple offerings, you might wonder, which one to choose. Maybe you performed a wide search in order to find as much hits as possible. But you probably have selecion criteria to identify the best result. The lib supports also the automatic application of multiple selection criteria on the result of a discovery. Start with the creator method of `OfferingSelector` and build your selection.
 
 ```java
@@ -105,8 +103,7 @@ consumer
 						.select(list));
 ```
 
-### Accessing Offerings
-
+### Access offerings
 Now, we want to read data from the offering. First, we have to specify with which parameter we want to access the offering.
 
 ```java
@@ -141,8 +138,7 @@ It returns the parsed response as Jackson `JsonNode` with you can traverse the d
 response.getBody();
 ```
 
-### Continuous Access of Offerings
-
+### Continuous access of offerings
 Maybe we want to show the returned parking data in real time on a dashboard. It would be even nicer if we could access the parking data continuously.
 
 ```java
