@@ -11,8 +11,8 @@ Using the BIG IoT libraries, it is easy to get started to dive into the BIG IoT 
 
 In this developer guide, three parts are described:
 
-1. In the [provider](../providerPerspective) example, we show how to bring an existing IoT platforms into the BIG IoT ecosystem. The example platform is a simple IoT platform which offers parking data in Barcelona and makes it public on the BIG IoT Marketplace. 
-1. In the [consumer](../consumerPerspective), we show how to use the BIG IoT Consumer Library to access this data from the perspective of a developer who wants to retrieve that data in an application or service.
+1. In the [provider](../providerExample) example, we show how to bring an existing IoT platforms into the BIG IoT ecosystem. The example platform is a simple IoT platform which offers parking data in Barcelona and makes it public on the BIG IoT Marketplace. 
+1. In the [consumer](../consumerExample), we show how to use the BIG IoT Consumer Library to access this data from the perspective of a developer who wants to retrieve that data in an application or service.
 1. [Here](../moreLibFunctionality) you find additional information about advanced usage of the BIG IoT Lib.
 
 # Before you begin...
@@ -72,4 +72,4 @@ Now, you start the example provider: Select the file `ExampleProvider.java` in t
 Before you can see something interesting in the console, you have to start the consumer too. Therefore, you have to create also a consumer at the marketplace and transfer the credentials to the code. The steps are similar to creating a provider. Just switch back to your web browser and start the same process, now, by clicking on `My Consumers`. The credentials have to be inserted in `ExampleConsumer.java`, which is below the directory then `java-example-consumer`. 
 Now, start the Consumer and see what happens. Enjoy!
 
-**Continue with the [provider](../providerPerspective) and the [consumer](../consumerPerspective) example**
+**Continue with the [provider](../providerExample) and the [consumer](../consumerExample) example**
