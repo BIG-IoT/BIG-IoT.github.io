@@ -17,9 +17,9 @@ docs:
       - title: "Startup Guide"
         url: /startupGuide
       - title: "Provider Tutorial"
-        url: /providerPerspective
+        url: /providerExample
       - title: "Consumer Tutorial"
-        url: /consumerPerspective
+        url: /consumerExample
 
 main:
   - title: "Tutorial"
